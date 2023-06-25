@@ -7,7 +7,7 @@ const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <motion.nav initial="hidden" variants={navVariants}
-            whileInView="show" className="flex items-center justify-between flex-wrap p-6">
+            whileInView="show" className="flex items-center justify-between flex-wrap p-6 bg-navbar">
             <div className="flex items-center flex-shrink-0 text-white mr-6 lg:mr-32">
                 <img width={60} height={'auto'} src={LogoImage.src} />
             </div>
@@ -49,7 +49,7 @@ const NavBar = () => {
                     Thi thử Toeic
                 </a>
                 <a href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
-                    Bài viết
+                    Giới thiệu
                 </a>
                 <div className={`lg:hidden`}>
                     <div className="btn-default"><a href="#">Đăng nhập</a></div>
