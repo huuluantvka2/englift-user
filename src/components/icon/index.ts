@@ -11,4 +11,5 @@ import Instagram from '../../../public/icon/instagram.svg'
 import Star from '../../../public/icon/star.svg'
 import LargePerson from '../../../public/icon/large-person.svg'
 import LargeWoman from '../../../public/icon/woman.svg'
-export { Dictionary, Course, Topic, Exam, Android, Apple, Facebook, Twitter, Linkedin, Instagram, Star, LargePerson, LargeWoman }
+import Success from '../../../public/icon/success.svg'
+export { Dictionary, Course, Topic, Exam, Android, Apple, Facebook, Twitter, Linkedin, Instagram, Star, LargePerson, LargeWoman, Success }

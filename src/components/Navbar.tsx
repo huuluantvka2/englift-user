@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useState } from "react";
 import LogoImage from '../../public/logo/logo.png'
 import { navVariants } from '@/utils/motion';
+import Link from 'next/link'
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
@@ -33,32 +34,32 @@ const NavBar = () => {
             <div
                 className={`w-full block text-lg flex-grow lg:flex lg:items-center lg:w-auto ${isOpen ? "block" : "hidden"}`}
             >
-                <a href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
+                <Link href="/" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Trang chủ
-                </a>
-                <a href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
+                </Link>
+                <Link href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Bài học
-                </a>
-                <a href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
+                </Link>
+                <Link href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Hướng dẫn
-                </a>
-                <a href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
+                </Link>
+                <Link href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Bài viết
-                </a>
-                <a href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
+                </Link>
+                <Link href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Thi thử Toeic
-                </a>
-                <a href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
+                </Link>
+                <Link href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Giới thiệu
-                </a>
+                </Link>
                 <div className={`lg:hidden`}>
-                    <div className="btn-default"><a href="#">Đăng nhập</a></div>
-                    <div className="btn-default"><a href="#">Đăng ký</a></div>
+                    <div className="btn-default"><Link href="/dang-nhap">Đăng nhập</Link></div>
+                    <div className="btn-default"><Link href="/dang-ky">Đăng ký</Link></div>
                 </div>
             </div>
             <div className="hidden lg:block">
-                <div className="btn-default"><a href="#">Đăng nhập</a></div>
-                <div className="btn-default"><a href="#">Đăng ký</a></div>
+                <div className="btn-default"><Link href="/dang-nhap">Đăng nhập</Link></div>
+                <div className="btn-default"><Link href="/dang-ky">Đăng ký</Link></div>
             </div>
         </motion.nav>
     )

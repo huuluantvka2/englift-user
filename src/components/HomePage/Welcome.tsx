@@ -11,7 +11,7 @@ const Welcome = () => {
                 <h5 className="mt-3">Everything You Need. To Learning English</h5>
             </motion.div>
             <motion.div variants={textVariant(1.1)}>
-                <input className="form-control-web mt-3" id="search-word" type="text" aria-label="Search" placeholder="Nhập từ cần tra" />
+                <input className="form-control-web mt-3 max-w-[260px]" id="search-word" type="text" aria-label="Search" placeholder="Nhập từ cần tra" />
                 <button className='btn-submit mt-3 ml-0 md:ml-3'>Tra từ</button>
             </motion.div>
         </motion.div>
