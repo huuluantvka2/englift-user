@@ -1,11 +1,38 @@
 "use client"
 import { motion } from 'framer-motion';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LogoImage from '../../public/logo/logo.png'
 import { navVariants } from '@/utils/motion';
 import Link from 'next/link'
+import { clearAccessToken, getProfileLocal } from '@/services/commonService';
+import { UserLocal } from '@/model/user';
+import { Avatar, Dropdown, Star } from './icon';
+import { showSwalModal, showSwalSuccessMessage } from '@/utils/func';
+import { useRouter } from 'next/navigation';
 const NavBar = () => {
+    //#region useState
     const [isOpen, setIsOpen] = useState(false);
+    const [user, setUser] = useState<UserLocal | null>(null)
+    const router = useRouter()
+    //#endregion 
+    useEffect(() => {
+        let userLocal = getProfileLocal()
+        setUser(userLocal)
+    }, [])
+
+    //#region handle
+    const handleLogout = (e) => {
+        e.preventDefault();
+        showSwalModal('Bạn có muốn đăng xuất tài khoản?', '', 'question').then((res) => {
+            if (res.isConfirmed) {
+                clearAccessToken()
+                setUser(null)
+                showSwalSuccessMessage('Đăng xuất thành công')
+                router.push('/')
+            }
+        })
+    }
+    //#endregion
     return (
         <motion.nav initial="hidden" variants={navVariants}
             whileInView="show" className="flex items-center justify-between flex-wrap p-6 bg-navbar">
@@ -53,13 +80,47 @@ const NavBar = () => {
                     Giới thiệu
                 </Link>
                 <div className={`lg:hidden`}>
-                    <div className="btn-default"><Link href="/dang-nhap">Đăng nhập</Link></div>
-                    <div className="btn-default"><Link href="/dang-ky">Đăng ký</Link></div>
+                    {
+                        user?.id ? (<div className="relative info-user lg:mr-8">
+                            <div className="flex justify-between items-center">
+                                <img className="w-10 h-10 rounded-full mr-2" src={user?.avatar} alt="" />
+                                <div>
+                                    <img className="mx-1" src={Star.src} width="20" />
+                                    <p>{user.fullName}</p>
+                                </div>
+                                <img className="mx-1" src={Dropdown.src} width="30" />
+                            </div>
+                            <div className="dropdown-menu flex flex-col justify-center items-start rounded-lg py-2 bg-[#ffffff] absolute" aria-labelledby="dropdownNUserD" x-placement="bottom-start">
+                                <Link className="dropdown-item" href="">Thông tin tài khoản </Link>
+                                <Link className="dropdown-item" href="">Thoát<i className="fas fa-sign-out-alt"> </i></Link>
+                            </div>
+                        </div>) : (<>
+                            <div className="btn-default"><Link href="/dang-nhap">Đăng nhập</Link></div>
+                            <div className="btn-default"><Link href="/dang-ky">Đăng ký</Link></div>
+                        </>)
+                    }
                 </div>
             </div>
             <div className="hidden lg:block">
-                <div className="btn-default"><Link href="/dang-nhap">Đăng nhập</Link></div>
-                <div className="btn-default"><Link href="/dang-ky">Đăng ký</Link></div>
+                {
+                    user?.id ? (<div className="relative info-user lg:mr-8">
+                        <div className="flex justify-between items-center">
+                            <img className="w-10 h-10 rounded-full mr-2" src={user?.avatar || Avatar.src} alt="" width="30" />
+                            <div>
+                                <img className="mx-1" src={Star.src} width="20" />
+                                <p>{user.fullName}</p>
+                            </div>
+                            <img className="mx-1" src={Dropdown.src} width="30" />
+                        </div>
+                        <div className="dropdown-menu min-w-[200px] flex flex-col justify-center items-start rounded-lg py-2 bg-[#ffffff] absolute" aria-labelledby="dropdownNUserD" x-placement="bottom-start">
+                            <Link className="dropdown-item" href="">Thông tin tài khoản </Link>
+                            <Link onClick={(e) => handleLogout(e)} className="dropdown-item" href="">Thoát<i className="fas fa-sign-out-alt"> </i></Link>
+                        </div>
+                    </div>) : (<>
+                        <div className="btn-default"><Link href="/dang-nhap">Đăng nhập</Link></div>
+                        <div className="btn-default"><Link href="/dang-ky">Đăng ký</Link></div>
+                    </>)
+                }
             </div>
         </motion.nav>
     )

@@ -12,4 +12,10 @@ import Star from '../../../public/icon/star.svg'
 import LargePerson from '../../../public/icon/large-person.svg'
 import LargeWoman from '../../../public/icon/woman.svg'
 import Success from '../../../public/icon/success.svg'
-export { Dictionary, Course, Topic, Exam, Android, Apple, Facebook, Twitter, Linkedin, Instagram, Star, LargePerson, LargeWoman, Success }
+import Dropdown from '../../../public/icon/dropdown.svg'
+import Avatar from '../../../public/icon/avatar.svg'
+export {
+    Avatar, Dictionary, Course, Topic, Exam, Android,
+    Apple, Facebook, Twitter, Linkedin, Instagram, Star, LargePerson,
+    LargeWoman, Success, Dropdown
+}

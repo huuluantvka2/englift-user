@@ -4,16 +4,15 @@ import HeadingPage from "@/components/base/HeadingPage";
 import Loading from "@/components/base/Loading";
 import { Success } from "@/components/icon";
 import firebase_app from "@/firebase/config";
-import { loginSocial, signUpSystem } from "@/services/authService";
+import { SignIn, UserLocal } from "@/model/user";
+import { loginSocial, signInSystem, signUpSystem } from "@/services/authService";
 import { setAccessToken, setProfileLocal } from "@/services/commonService";
-import { searchWordByKey } from "@/services/wordService";
+import { showSwalSuccessMessage } from "@/utils/func";
 import { FacebookAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from 'next/navigation';
 import CatQuestionMark from '../../../public/logo/cat-question-mark.png';
-import { SignUp, UserLocal } from "@/model/user";
-import { showSwalModal, showSwalSuccessMessage } from "@/utils/func";
 import Link from "next/link";
 
 const googleProvider = new GoogleAuthProvider();
@@ -22,12 +21,11 @@ const auth = getAuth(firebase_app);
 auth.languageCode = "vn"
 
 const registerOptions = {
-  fullName: { required: "Vui lòng điền trường thông tin này", minLength: { value: 6, message: 'Ít nhất 6 ký tự' } },
   email: { required: "Vui lòng điền trường thông tin này", pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: 'Sai định dạng email' } },
   password: { required: "Vui lòng điền trường thông tin này", minLength: { value: 6, message: 'Ít nhất 6 ký tự' } },
 }
-const Register = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<SignUp>();
+const SignIn = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<SignIn>();
   const router = useRouter()
   //useState
   const [isLoading, setLoading] = useState<boolean>(false)
@@ -70,19 +68,22 @@ const Register = () => {
         console.log(error)
       });
   }
-  const handleSignUp = (values: SignUp) => {
-    console.log(values)
-    showSwalModal('Bạn có chắc muốn tạo tài khoản?', '', 'question').then(async (res) => {
-      if (res.isConfirmed) {
-        setLoading(true)
-        const response = await signUpSystem(values)
-        if (response.success) {
-          showSwalSuccessMessage('Tạo tài khoản thành công')
-          router.push('/dang-nhap')
-        }
-        setLoading(false)
+  const handleSignIn = async (values: SignIn) => {
+    setLoading(true)
+    const response = await signInSystem(values)
+    if (response.success) {
+      setAccessToken(response.data?.accessToken as string)
+      let data: UserLocal = {
+        id: response.data?.userId as string,
+        fullName: response.data?.fullName as string,
+        email: response.data?.email as string,
+        avatar: response.data?.avatar
       }
-    })
+      setProfileLocal(data)
+      showSwalSuccessMessage('Đăng nhập thành công')
+      window.location.replace('/')
+    }
+    setLoading(false)
   }
   //#endregion
   return (
@@ -91,7 +92,7 @@ const Register = () => {
       {isLoading ? <Loading /> : (
         <>
           <div className="text-center my-5">
-            <h3 className="text-xl"><b>Bạn muốn tạo tài khoản bằng cách nào nhỉ?</b></h3>
+            <h3 className="text-xl"><b>Đăng nhập tài khoản học Englift</b></h3>
             <img className="inline-block" src={CatQuestionMark.src} width="200" />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -102,7 +103,7 @@ const Register = () => {
               <EngliftButton disabled={true} name="Tạo tài khoản với Apple" className="mx-auto bg-[#000000] my-2 min-w-[250px] block" />
             </div>
             <div className="lg:hidden"><h2 className="text-center text-xl"><b>Hoặc</b></h2></div>
-            <form className="mt-5 lg:mt-0 flex flex-col justify-center items-center" onSubmit={handleSubmit(handleSignUp)}>
+            <form className="mt-5 lg:mt-0 flex flex-col justify-center items-center" onSubmit={handleSubmit(handleSignIn)}>
               <div className="pb-6 relative">
                 <h6>Email:</h6>
                 <input {...register('email', registerOptions.email)} type="email" className="form-control-web w-[260px] md:w-[300px] lg:md:w-[340px] xl:md:w-[380px]" placeholder="Nhập email của bạn" />
@@ -117,15 +118,8 @@ const Register = () => {
                   {errors?.password && errors?.password?.message}
                 </small>
               </div>
-              <div className="pb-6 relative">
-                <h6>Họ tên:</h6>
-                <input {...register('fullName', registerOptions.fullName)} className="form-control-web w-[260px] md:w-[300px] lg:md:w-[340px] xl:md:w-[380px]" type="text" placeholder="Nhập nhập họ tên của bạn" />
-                <small className="text-dander absolute bottom-0 left-0">
-                  {errors?.fullName && errors?.fullName?.message}
-                </small>
-              </div>
-              <EngliftButton type="submit" icon={Success.src} name="Đăng ký" className="mx-auto bg-[#D21919] my-2 block" />
-              <div className="mt-3">Đã có tài khoản? <Link className="italic underline text-[#a865e1]" href="/dang-nhap"><b>Đăng nhập ngay</b></Link></div>
+              <EngliftButton type="submit" icon={Success.src} name="Đăng nhập" className="mx-auto bg-[#D21919] my-2 block" />
+              <div className="mt-3">Chưa có tài khoản? <Link className="italic underline text-[#a865e1]" href="/dang-ky"><b>Tạo ngay tài khoản học</b></Link></div>
             </form>
           </div>
         </>
@@ -134,4 +128,4 @@ const Register = () => {
     </div>
   )
 }
-export default Register
+export default SignIn
