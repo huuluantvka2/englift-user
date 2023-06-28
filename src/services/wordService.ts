@@ -3,8 +3,8 @@ import apiBase from "./axiosBase";
 import { generateRequest } from "@/utils/func";
 import { ApiResponse, PaginationData } from "@/model/common";
 
-const searchWordByKey = (request: { content: string }): Promise<ApiResponse<PaginationData<WordItem>>> => {
-    return apiBase.get(`/Words/Search${generateRequest(request)}`)
+const searchWordByKey = (content: string): Promise<ApiResponse<PaginationData<WordItem>>> => {
+    return apiBase.get(`/Words/Search${generateRequest({ content })}`)
 }
 
 export { searchWordByKey };

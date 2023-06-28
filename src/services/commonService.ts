@@ -5,6 +5,7 @@ export const setAccessToken = (access_token: string) => {
 }
 
 export const getAccessToken = (): string | null => {
+    if (!localStorage) return null
     return localStorage.getItem('access_token')
 }
 

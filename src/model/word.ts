@@ -1,6 +1,6 @@
 export interface WordItem {
     id: string,
-    audio: string,
+    audio?: string,
     content: string,
     trans: string,
     example: string,

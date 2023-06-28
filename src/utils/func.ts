@@ -39,3 +39,12 @@ export const showSwalSuccessMessage = (title: string, timer: number = 1500) => {
         timer: timer
     })
 }
+
+export const renderBadgeClassname = (position: string) => {
+    switch (position.toLowerCase().trim()) {
+        case 'noun': case 'danh từ': return 'badge-green'
+        case 'verb': case 'động từ': return 'badge-red'
+        case 'adjective': case 'tính từ': return 'badge-purple'
+        default: return 'badge-blue'
+    }
+}

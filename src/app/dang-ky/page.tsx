@@ -4,17 +4,16 @@ import HeadingPage from "@/components/base/HeadingPage";
 import Loading from "@/components/base/Loading";
 import { Success } from "@/components/icon";
 import firebase_app from "@/firebase/config";
+import { SignUp, UserLocal } from "@/model/user";
 import { loginSocial, signUpSystem } from "@/services/authService";
 import { setAccessToken, setProfileLocal } from "@/services/commonService";
-import { searchWordByKey } from "@/services/wordService";
+import { showSwalModal, showSwalSuccessMessage } from "@/utils/func";
 import { FacebookAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from 'next/navigation';
 import CatQuestionMark from '../../../public/logo/cat-question-mark.png';
-import { SignUp, UserLocal } from "@/model/user";
-import { showSwalModal, showSwalSuccessMessage } from "@/utils/func";
-import Link from "next/link";
 
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
@@ -53,7 +52,9 @@ const Register = () => {
           }
           setProfileLocal(data)
           showSwalSuccessMessage('Đăng nhập thành công')
-          window.location.replace('/')
+          setTimeout(() => {
+            window.location.replace('/')
+          }, 1500)
         }
       }).catch((error) => {
         console.log(error)
@@ -98,7 +99,7 @@ const Register = () => {
             <div className="flex flex-col justify-start items-center">
               <b>Tài khoản mạng xã hội?</b>
               <EngliftButton onClick={handleLoginGoogle} name="Tạo tài khoản với Google" className="mx-auto bg-[#D21919] my-2 min-w-[250px] block" />
-              <EngliftButton disabled name="Tạo tài khoản với Facebook" className="mx-auto bg-[#007BFE] my-2 min-w-[250px] block" />
+              <EngliftButton disabled={true} name="Tạo tài khoản với Facebook" className="mx-auto bg-[#007BFE] my-2 min-w-[250px] block" />
               <EngliftButton disabled={true} name="Tạo tài khoản với Apple" className="mx-auto bg-[#000000] my-2 min-w-[250px] block" />
             </div>
             <div className="lg:hidden"><h2 className="text-center text-xl"><b>Hoặc</b></h2></div>

@@ -81,7 +81,9 @@ const SignIn = () => {
       }
       setProfileLocal(data)
       showSwalSuccessMessage('Đăng nhập thành công')
-      window.location.replace('/')
+      setTimeout(() => {
+        window.location.replace('/')
+      }, 1500)
     }
     setLoading(false)
   }
@@ -98,9 +100,9 @@ const SignIn = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="flex flex-col justify-start items-center">
               <b>Tài khoản mạng xã hội?</b>
-              <EngliftButton onClick={handleLoginGoogle} name="Tạo tài khoản với Google" className="mx-auto bg-[#D21919] my-2 min-w-[250px] block" />
-              <EngliftButton disabled name="Tạo tài khoản với Facebook" className="mx-auto bg-[#007BFE] my-2 min-w-[250px] block" />
-              <EngliftButton disabled={true} name="Tạo tài khoản với Apple" className="mx-auto bg-[#000000] my-2 min-w-[250px] block" />
+              <EngliftButton onClick={handleLoginGoogle} name="Đăng nhập với Google" className="mx-auto bg-[#D21919] my-2 min-w-[250px] block" />
+              <EngliftButton disabled name="Đăng nhập với Facebook" className="mx-auto bg-[#007BFE] my-2 min-w-[250px] block" />
+              <EngliftButton disabled={true} name="Đăng nhập với Apple" className="mx-auto bg-[#000000] my-2 min-w-[250px] block" />
             </div>
             <div className="lg:hidden"><h2 className="text-center text-xl"><b>Hoặc</b></h2></div>
             <form className="mt-5 lg:mt-0 flex flex-col justify-center items-center" onSubmit={handleSubmit(handleSignIn)}>

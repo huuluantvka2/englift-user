@@ -129,7 +129,7 @@ html,body{
   &::after{
     content: '';
     position: absolute;
-    height: 2px;
+    height: 1px;
     width: 80px;
     background-color: #fb397d;
     left: 50%;
@@ -144,8 +144,11 @@ html,body{
     width: 100%;
   }
 }
-
 .item-box{
+  text-align: center;
+  align-items: center;
+}
+.item-box,.item-box-2{
     border: 1px solid #eff2f6;
     padding: 40px;
     border-radius: 32px;
@@ -154,15 +157,17 @@ html,body{
     box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 5px 10px -5px rgba(233,30,99,.4);
     background-color: #ffffff;
     color: #1A232E;
-    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     cursor: pointer;
     &:hover{
       box-shadow: 0 4px 20px 0 rgb(0 0 0), 0 5px 10px -5px rgb(233 30 99);;
     }
 }
+.item-box-2{
+  height: fit-content;
+}
+
 .text-bg{
   background-color: #8d39a3;
 }
@@ -170,10 +175,13 @@ html,body{
   text-indent: 28px;
 }
 .bg-gradient{
-  background: linear-gradient(to left,#7873ed,#a865e1);
+  background: linear-gradient(to left,#7873ed,$color_purple);
 }
 .color-pink{
   color: #fb397d;
+}
+.color-purple{
+  color: $color_purple;
 }
 .btn-englift{
   border-radius: 25px;
@@ -203,7 +211,7 @@ html,body{
     width: 100%;
     white-space: nowrap;
     &:hover{
-      background-color: #a865e1;
+      background-color: $color_purple;
       color: white;
       transition: .4s;
     }
@@ -238,4 +246,23 @@ body::-webkit-scrollbar-thumb
 											  rgba(0, 0, 0, .2) 75%,
 											  transparent 75%,
 											  transparent)
+}
+
+//badge
+.badge{
+  padding: 4px 8px;
+  color: white;
+  border-radius: 8px;
+}
+.badge-red{
+  background-color: #c42733;
+}
+.badge-green{
+  background-color: #76bb0c;
+}
+.badge-blue{
+  background-color: #2778c4;
+}
+.badge-purple{
+  background-color: #a865e1;
 }
