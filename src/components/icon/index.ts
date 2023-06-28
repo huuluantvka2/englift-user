@@ -18,8 +18,11 @@ import Search from '../../../public/icon/search.svg'
 import AvatarThinking from '../../../public/icon/avatar-thinking.svg'
 import LoudSpeaker from '../../../public/icon/loudspeaker.svg'
 import CryIcon from '../../../public/icon/cry.svg'
+import NoCourse from '../../../public/icon/no-couses.png'
+import Viewer from '../../../public/icon/view.svg'
 export {
     Avatar, Dictionary, Course, Topic, Exam, Android,
     Apple, Facebook, Twitter, Linkedin, Instagram, Star, LargePerson,
-    LargeWoman, Success, Dropdown, Search, AvatarThinking, LoudSpeaker, CryIcon
+    LargeWoman, Success, Dropdown, Search, AvatarThinking, LoudSpeaker, CryIcon,
+    NoCourse, Viewer
 }

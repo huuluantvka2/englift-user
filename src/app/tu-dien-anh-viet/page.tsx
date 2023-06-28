@@ -54,8 +54,8 @@ const SearchWord = (props: { searchParams: { search: string } }) => {
   return (
     <div className="w-full max-w-[1024px] mx-auto pt-[10px] px-5 md:px-10">
       <HeadingPage title="Từ điển Anh - Việt" />
-      <div className="flex justify-center">
-        <input onKeyDown={handleEnter} onChange={e => setSearchContent(e.target.value)} value={searchContent} className="form-control-web mt-3 w-[260px] md:w-[320px] lg:w[400px]" id="search-word" type="text" aria-label="Search" placeholder="Nhập từ cần tra" />
+      <div className="flex justify-center flex-col items-center md:flex-row">
+        <input onKeyDown={handleEnter} onChange={e => setSearchContent(e.target.value)} value={searchContent} className="form-control-web mt-3 w-[240px] md:w-[320px] lg:w[400px]" id="search-word" type="text" aria-label="Search" placeholder="Nhập từ cần tra" />
         <EngliftButton onClick={handleSearch} type="button" icon={Search.src} widthIcon="30" name="Tra từ" className="btn-submit mt-3 mx-2" />
       </div>
       {!search && <div className="min-h-[200px] flex flex-col justify-center items-center mt-5">

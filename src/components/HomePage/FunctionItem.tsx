@@ -3,12 +3,14 @@ import { fadeIn, staggerContainer } from "@/utils/motion";
 import Heading from "../base/Heading"
 import { Dictionary, Course, Topic, Exam } from "./../icon"
 import { motion } from 'framer-motion';
+import Link from "next/link";
+import { Url } from "next/dist/shared/lib/router/router";
 
 const listItem: Array<{ name: string, link?: string, icon: any }> = [
-    { name: 'Kho từ vựng', icon: Dictionary, link: '#' },
+    { name: 'Kho từ vựng', icon: Dictionary, link: '/tu-dien-anh-viet?search=' },
     { name: 'Khóa học', icon: Course, link: '#' },
     { name: 'Từ vựng theo chủ đề', icon: Topic, link: '#' },
-    { name: 'Thi Toeic', icon: Exam, link: '#' }
+    { name: 'Thi Toeic', icon: Exam, link: 'https://online.toeicmentors.com' }
 ]
 
 const FunctionItem = () => {
@@ -20,8 +22,10 @@ const FunctionItem = () => {
                 {
                     listItem.map((item, index) => (
                         <motion.div variants={fadeIn('right', 'spring', (index + 1) * 0.5, 0.1, 25)} className="item-box text-lg font-bold" key={index}>
-                            <img className="my-2" src={item.icon.src} width="40" />
-                            <span>{item.name}</span>
+                            <Link href={item.link as Url}>
+                                <img className="my-2" src={item.icon.src} width="40" />
+                                <span>{item.name}</span>
+                            </Link>
                         </motion.div>
                     ))
                 }

@@ -37,7 +37,7 @@ const NavBar = () => {
         <motion.nav initial="hidden" variants={navVariants}
             whileInView="show" className="flex items-center justify-between flex-wrap p-6 bg-navbar">
             <div className="flex items-center flex-shrink-0 text-white mr-6 lg:mr-32">
-                <img width={60} height={'auto'} src={LogoImage.src} />
+                <Link href="/"><img width={60} height={'auto'} src={LogoImage.src} /></Link>
             </div>
             <div className="block lg:hidden ml-auto">
                 <button
@@ -64,19 +64,16 @@ const NavBar = () => {
                 <Link href="/" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Trang chủ
                 </Link>
-                <Link href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
-                    Bài học
+                <Link href="/khoa-hoc" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
+                    Khóa học
                 </Link>
-                <Link href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
-                    Hướng dẫn
-                </Link>
-                <Link href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
+                <Link href="bai-viet" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Bài viết
                 </Link>
-                <Link href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
+                <Link href="https://online.toeicmentors.com" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Thi thử Toeic
                 </Link>
-                <Link href="#" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
+                <Link href="/gioi-thieu" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Giới thiệu
                 </Link>
                 <div className={`lg:hidden`}>
