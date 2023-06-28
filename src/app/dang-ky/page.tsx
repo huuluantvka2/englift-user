@@ -16,7 +16,6 @@ import { useForm } from "react-hook-form";
 import CatQuestionMark from '../../../public/logo/cat-question-mark.png';
 
 const googleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
 const auth = getAuth(firebase_app);
 auth.languageCode = "vn"
 
@@ -61,15 +60,6 @@ const Register = () => {
       });
   }
   const handleLoginFacebook = async () => {
-    signInWithPopup(auth, facebookProvider)
-      .then((result) => {
-        console.log(result)
-        const user = result.user;
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-      })
-      .catch((error) => {
-        console.log(error)
-      });
   }
   const handleSignUp = (values: SignUp) => {
     console.log(values)

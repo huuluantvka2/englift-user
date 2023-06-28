@@ -1,26 +1,36 @@
 import { UserLocal } from "@/model/user"
 
 export const setAccessToken = (access_token: string) => {
-    localStorage.setItem('access_token', access_token)
+    if (typeof window !== 'undefined') {
+        localStorage.setItem('access_token', access_token)
+    }
 }
 
 export const getAccessToken = (): string | null => {
-    if (!localStorage) return null
-    return localStorage.getItem('access_token')
+    if (typeof window !== 'undefined') {
+        return localStorage.getItem('access_token')
+    } else return null
 }
 
 export const clearAccessToken = () => {
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('profile')
+    if (typeof window !== 'undefined') {
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('profile')
+    }
+
 }
 
 export const getProfileLocal = (): UserLocal | null => {
-    let json = localStorage.getItem('profile');
-    return json ? JSON.parse(localStorage.getItem('profile') as string) : null
+    if (typeof window !== 'undefined') {
+        let json = localStorage.getItem('profile');
+        return json ? JSON.parse(localStorage.getItem('profile') as string) : null
+    } else return null
 }
 
 export const setProfileLocal = (data: UserLocal) => {
-    localStorage.setItem('profile', JSON.stringify(data))
+    if (typeof window !== 'undefined') {
+        localStorage.setItem('profile', JSON.stringify(data))
+    }
 }
 
 
