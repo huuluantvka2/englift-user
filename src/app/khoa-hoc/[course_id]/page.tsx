@@ -2,9 +2,11 @@
 import EngliftButton from "@/components/base/EngliftButton"
 import HeadingPage from "@/components/base/HeadingPage"
 import Loading from "@/components/base/Loading"
-import { CryIcon, NoCourse, Search, Viewer } from "@/components/icon"
+import { CryIcon, NoCourse1, NoCourse2, Search, Viewer } from "@/components/icon"
 import { BaseRequest } from "@/model/common"
+import { CourseItem } from "@/model/course"
 import { LessonItem } from "@/model/lesson"
+import { getCourseById } from "@/services/courseService"
 import { getLessonsByCourseId } from "@/services/lessonService"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -22,7 +24,18 @@ const Lessons = (props: { params: { course_id: string } }) => {
 	const [search, setSearch] = useState<string | undefined>(undefined)
 	const [total, setTotal] = useState<number>(0)
 	const [lessons, setLessons] = useState<LessonItem[] | undefined>(undefined)
+	const [course, setCourse] = useState<CourseItem | undefined>(undefined)
 
+	useEffect(() => {
+		loadCourse(course_id)
+	}, [])
+
+	const loadCourse = async (id) => {
+		const response = await getCourseById(id)
+		if (response.success) {
+			setCourse(response.data)
+		}
+	}
 	useEffect(() => {
 		loadData()
 	}, [request.page, request.search])
@@ -59,7 +72,7 @@ const Lessons = (props: { params: { course_id: string } }) => {
 
 	return (
 		<div className="w-full max-w-[1248px] mx-auto pt-[10px] px-5 md:px-10">
-			<HeadingPage title="Danh sách bài học" />
+			<HeadingPage title={`${!course?.name ? 'Đang tải...' : `${course?.name} / Danh sách bài học`}`} />
 			<div>Chúc bạn học tốt!</div>
 			<div className="flex justify-center flex-col items-center md:flex-row">
 				<input onKeyDown={handleEnter} value={search} onChange={(e) => setSearch(e.target.value)} className="form-control-web mt-3 w-[240px] md:w-[320px] lg:w[400px]" id="search-word" type="text" aria-label="Search" placeholder="Tìm tên bài học" />
@@ -76,7 +89,7 @@ const Lessons = (props: { params: { course_id: string } }) => {
 							lessons?.map((item, index) => (
 								<div className="item-box-3 mt-10 relative" key={index}>
 									<Link href="#">
-										<img className="hover-image my-2 h-[200px] absolute top-[-30px] rounded-md left-1/2 transform -translate-x-1/2" src={item.image || NoCourse.src} style={{ width: '90%' }} />
+										<img className="hover-image my-2 w-[200px] h-[200px] absolute top-[-30px] rounded-md left-1/2 transform -translate-x-1/2" src={item.image || (index % 2 === 0 ? NoCourse1.src : NoCourse2.src)} />
 										<h2 className="text-center text-xl md:text-2xl mt-[180px] color-purple"><b>{item.name}</b></h2>
 										<p className="text-indent-sm">
 											{item.description}
@@ -103,7 +116,7 @@ const Lessons = (props: { params: { course_id: string } }) => {
 						onPageChange={handleChangePage}
 						pageRangeDisplayed={4}
 						pageCount={Math.ceil(total / (request.limit || 15))}
-
+						initialPage={request.page ? (+request.page - 1) : 0}
 						previousLabel="< Trước"
 						renderOnZeroPageCount={null}
 					/>
