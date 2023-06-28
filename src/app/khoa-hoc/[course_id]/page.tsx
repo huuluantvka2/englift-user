@@ -4,12 +4,13 @@ import HeadingPage from "@/components/base/HeadingPage"
 import Loading from "@/components/base/Loading"
 import { CryIcon, NoCourse, Search, Viewer } from "@/components/icon"
 import { BaseRequest } from "@/model/common"
-import { CourseItem } from "@/model/course"
-import { getCourses } from "@/services/courseService"
+import { LessonItem } from "@/model/lesson"
+import { getLessonsByCourseId } from "@/services/lessonService"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import ReactPaginate from "react-paginate"
-const Courses = () => {
+const Lessons = (props: { params: { course_id: string } }) => {
+	const { course_id } = props.params
 	//#region useState
 	const [request, setRequest] = useState<BaseRequest>({
 		limit: 15,
@@ -20,7 +21,7 @@ const Courses = () => {
 	const [isLoading, setLoading] = useState<boolean>(false)
 	const [search, setSearch] = useState<string | undefined>(undefined)
 	const [total, setTotal] = useState<number>(0)
-	const [courses, setCourses] = useState<CourseItem[] | undefined>(undefined)
+	const [lessons, setLessons] = useState<LessonItem[] | undefined>(undefined)
 
 	useEffect(() => {
 		loadData()
@@ -28,9 +29,9 @@ const Courses = () => {
 
 	const loadData = async () => {
 		setLoading(true)
-		const response = await getCourses(request)
+		const response = await getLessonsByCourseId({ course_id, request })
 		if (response.success) {
-			setCourses(response.data?.items)
+			setLessons(response.data?.items)
 			setTotal(response.data?.totalRecord as number)
 		}
 		setLoading(false)
@@ -58,29 +59,28 @@ const Courses = () => {
 
 	return (
 		<div className="w-full max-w-[1248px] mx-auto pt-[10px] px-5 md:px-10">
-			<HeadingPage title="Danh sách khóa học" />
-			<div>Tổng hợp các khóa học tiếng Anh theo chủ đề kết hợp với âm thanh, hình ảnh, mẫu câu ví dụ. Tổng hợp từ nhiều nguồn trên Internet và được chia sẻ hoàn toàn miễn phí tại Englift.</div>
+			<HeadingPage title="Danh sách bài học" />
+			<div>Chúc bạn học tốt!</div>
 			<div className="flex justify-center flex-col items-center md:flex-row">
-				<input onKeyDown={handleEnter} value={search} onChange={(e) => setSearch(e.target.value)} className="form-control-web mt-3 w-[240px] md:w-[320px] lg:w[400px]" id="search-word" type="text" aria-label="Search" placeholder="Tìm tên khóa học" />
-				<EngliftButton onClick={handleSearch} type="button" icon={Search.src} widthIcon="30" name="Tìm khóa học" className="btn-submit mt-3 mx-2" />
+				<input onKeyDown={handleEnter} value={search} onChange={(e) => setSearch(e.target.value)} className="form-control-web mt-3 w-[240px] md:w-[320px] lg:w[400px]" id="search-word" type="text" aria-label="Search" placeholder="Tìm tên bài học" />
+				<EngliftButton onClick={handleSearch} type="button" icon={Search.src} widthIcon="30" name="Tìm bài học" className="btn-submit mt-3 mx-2" />
 			</div>
-			{search != undefined && !isLoading && courses?.length === 0 && <div className="min-h-[200px] flex flex-col justify-center items-center mt-5">
+			{search != undefined && !isLoading && lessons?.length === 0 && <div className="min-h-[200px] flex flex-col justify-center items-center mt-5">
 				<img width={200} src={CryIcon.src} />
-				<p>Rất tiếc chúng tôi không có khóa học này</p>
+				<p>Rất tiếc chúng tôi không có bài học này</p>
 			</div>}
 			{isLoading ? <Loading /> : (
 				<>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 						{
-							courses?.map((item, index) => (
+							lessons?.map((item, index) => (
 								<div className="item-box-3 mt-10 relative" key={index}>
-									<Link href={`/khoa-hoc/${item.id}`}>
+									<Link href="#">
 										<img className="hover-image my-2 h-[200px] absolute top-[-30px] rounded-md left-1/2 transform -translate-x-1/2" src={item.image || NoCourse.src} style={{ width: '90%' }} />
 										<h2 className="text-center text-xl md:text-2xl mt-[180px] color-purple"><b>{item.name}</b></h2>
 										<p className="text-indent-sm">
 											{item.description}
 										</p>
-										<hr className="border-t-[2px] my-2" />
 										<div className="flex justify-between">
 											<span><img className="inline mr-2" src={Viewer.src} width="20" />0</span>
 											<h4 className="text-end italic">Tác giả: Luân Lê</h4>
@@ -112,4 +112,4 @@ const Courses = () => {
 		</div>
 	)
 }
-export default Courses
+export default Lessons
