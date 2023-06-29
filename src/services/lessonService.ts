@@ -4,8 +4,12 @@ import { generateRequest } from "@/utils/func";
 import apiBase from "./axiosBase";
 
 const getLessonsByCourseId = (req: { course_id: string, request: BaseRequest }): Promise<ApiResponse<PaginationData<LessonItem>>> => {
-    return apiBase.get(`/Lessons/${req.course_id}${generateRequest(req.request)}`)
+    return apiBase.get(`/Lessons/Courses/${req.course_id}${generateRequest(req.request)}`)
 }
 
-export { getLessonsByCourseId };
+const getLessonById = (id: string): Promise<ApiResponse<LessonItem>> => {
+    return apiBase.get(`/Lessons/${id}`)
+}
+
+export { getLessonsByCourseId, getLessonById };
 

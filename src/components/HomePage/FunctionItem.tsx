@@ -21,7 +21,7 @@ const FunctionItem = () => {
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {
                     listItem.map((item, index) => (
-                        <motion.div variants={fadeIn('right', 'spring', (index + 1) * 0.5, 0.1, 25)} className="item-box text-lg font-bold" key={index}>
+                        <motion.div variants={fadeIn('right', 'spring', (index + 1) * 0.5, 0.1, 25)} className="item-box text-lg font-bold cursor-pointer" key={index}>
                             <Link href={item.link as Url}>
                                 <img className="my-2" src={item.icon.src} width="40" />
                                 <span>{item.name}</span>

@@ -7,5 +7,9 @@ const searchWordByKey = (content: string): Promise<ApiResponse<PaginationData<Wo
     return apiBase.get(`/Words/Search${generateRequest({ content })}`)
 }
 
-export { searchWordByKey };
+const getWordsByLessonId = (lesson_id: string): Promise<ApiResponse<PaginationData<WordItem>>> => {
+    return apiBase.get(`/Words/${lesson_id}`)
+}
+
+export { searchWordByKey, getWordsByLessonId };
 

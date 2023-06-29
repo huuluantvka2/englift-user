@@ -48,3 +48,26 @@ export const renderBadgeClassname = (position: string) => {
         default: return 'badge-blue'
     }
 }
+
+export const renderBorderClassname = (index: number) => {
+    const devide = index % 4;
+    switch (devide) {
+        case 0: return 'border-green'
+        case 1: return 'border-red'
+        case 2: return 'border-purple'
+        default: return 'border-blue'
+    }
+}
+
+export const handlePlayMP3 = (mp3) => {
+    let audio = new Audio(mp3)
+    audio.play()
+}
+
+/**
+ * Random from 0 to x
+ */
+export const randomFromZeroToNumber = (to: number) => {
+    to++
+    return Math.floor(Math.random() * to)
+}

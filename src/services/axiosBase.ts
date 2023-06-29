@@ -15,7 +15,7 @@ apiBase.interceptors.response.use(response => {
     return response?.data
 }, error => {
     showSwalMessage('Omg, đã xảy ra lỗi', error?.response?.data?.title || messageResponse[error.response?.data?.message], 'error')
-    console.log(error?.response?.data?.title);
+    console.log(error);
     let data: ApiResponse<boolean> = {
         statusCode: error.response?.data?.statusCode,
         success: false,

@@ -1,12 +1,12 @@
 "use client"
 
+import WordItemBox from "@/components/WordItemBox"
 import EngliftButton from "@/components/base/EngliftButton"
 import HeadingPage from "@/components/base/HeadingPage"
 import Loading from "@/components/base/Loading"
-import { AvatarThinking, CryIcon, LoudSpeaker, Search } from "@/components/icon"
+import { AvatarThinking, CryIcon, Search } from "@/components/icon"
 import { WordItem } from "@/model/word"
 import { searchWordByKey } from "@/services/wordService"
-import { renderBadgeClassname } from "@/utils/func"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -45,11 +45,6 @@ const SearchWord = (props: { searchParams: { search: string } }) => {
       router.replace(`/tu-dien-anh-viet?search=${searchContent}`)
     }
   }
-
-  const handlePlayMP3 = (mp3) => {
-    let audio = new Audio(mp3)
-    audio.play()
-  }
   //#endregion
   return (
     <div className="w-full max-w-[1024px] mx-auto pt-[10px] px-5 md:px-10">
@@ -67,46 +62,16 @@ const SearchWord = (props: { searchParams: { search: string } }) => {
         <p>Rất tiếc chúng tôi không thể tìm thấy từ bạn cần tra cứu</p>
       </div>}
       {isLoading ? <Loading /> : (
-        <div>
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-            <div className="grid grid-cols-1">
-              {
-                words?.map((item, index) => (index % 2 === 0 ?
-                  <div className="item-box-2 text-lg" key={index}>
-                    <div>
-                      <b className="mr-2 color-purple capitalize">{item.content}</b>
-                      <img onClick={() => handlePlayMP3(item.audio)} className="cursor-pointer inline mx-2" src={LoudSpeaker.src} width={30} />
-                      <span>{item.phonetic[0] === '/' ? item.phonetic : `/${item.phonetic}/`}</span>
-                    </div>
-                    <p className="my-2">
-                      {item.position.replaceAll('/', ',').split(',').map((item, index) => (
-                        <span key={index} className={`mr-1 badge ${renderBadgeClassname(item)}`}>{item}</span>
-                      ))}
-                    </p>
-                    <p>👉<span className="capitalize">{item.trans}</span></p>
-                    <p>💎<span className="capitalize">{item.example}</span></p>
-                  </div> : ""))
-              }
-            </div>
-            <div className="grid grid-cols-1">
-              {
-                words?.map((item, index) => (index % 2 !== 0 ?
-                  <div className="item-box-2 text-lg" key={index}>
-                    <div>
-                      <b className="mr-2 color-purple capitalize">{item.content}</b>
-                      {item.audio && <img onClick={() => handlePlayMP3(item.audio)} className='cursor-pointer inline mx-2' src={LoudSpeaker.src} width={30} />}
-                      <span>{item.phonetic[0] === '/' ? item.phonetic : `/${item.phonetic}/`}</span>
-                    </div>
-                    <p className="my-2">
-                      {item.position.replaceAll('/', ',').split(',').map((item, index) => (
-                        <span key={index} className={`mr-1 badge ${renderBadgeClassname(item)}`}>{item}</span>
-                      ))}
-                    </p>
-                    <p>👉<span className="capitalize">{item.trans}</span></p>
-                    <p>💎<span className="capitalize">{item.example}</span></p>
-                  </div> : ""))
-              }
-            </div>
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+          <div className="grid grid-cols-1">
+            {
+              words?.map((item, index) => (index % 2 === 0 ? <WordItemBox item={item} key={index} index={index} /> : ""))
+            }
+          </div>
+          <div className="grid grid-cols-1">
+            {
+              words?.map((item, index) => (index % 2 !== 0 ? <WordItemBox item={item} key={index} index={index} /> : ""))
+            }
           </div>
         </div>
       )}

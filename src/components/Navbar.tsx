@@ -8,18 +8,24 @@ import { clearAccessToken, getProfileLocal } from '@/services/commonService';
 import { UserLocal } from '@/model/user';
 import { Avatar, Dropdown, Star } from './icon';
 import { showSwalModal, showSwalSuccessMessage } from '@/utils/func';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 const NavBar = () => {
     //#region useState
+    const router = useRouter()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+
     const [isOpen, setIsOpen] = useState(false);
     const [user, setUser] = useState<UserLocal | null>(null)
-    const router = useRouter()
     //#endregion 
     useEffect(() => {
         let userLocal = getProfileLocal()
         setUser(userLocal)
     }, [])
 
+    useEffect(() => {
+        if (isOpen === true) setIsOpen(false)
+    }, [pathname, searchParams])
     //#region handle
     const handleLogout = (e) => {
         e.preventDefault();
