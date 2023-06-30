@@ -6,8 +6,10 @@ import { CryIcon, NoCourse1, NoCourse2, Search, Viewer } from "@/components/icon
 import { BaseRequest } from "@/model/common"
 import { CourseItem } from "@/model/course"
 import { LessonItem } from "@/model/lesson"
+import { getAccessToken } from "@/services/commonService"
 import { getCourseById } from "@/services/courseService"
 import { getLessonsByCourseId } from "@/services/lessonService"
+import { showSwalModal } from "@/utils/func"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -72,7 +74,13 @@ const Lessons = (props: { params: { course_id: string } }) => {
 	}
 
 	const gotoLessonDetail = (id) => {
-		router.push(`/bai-hoc/${id}`)
+		const token = getAccessToken()
+		if (token) router.push(`/bai-hoc/${id}`)
+		else showSwalModal('Vui lòng đăng nhập để lưu kết quả học tập', 'Đăng nhập ngay?', 'warning', 'Đăng nhập').then(res => {
+			if (res.isConfirmed) {
+				router.push(`/dang-nhap`)
+			}
+		})
 	}
 	//#endregion
 

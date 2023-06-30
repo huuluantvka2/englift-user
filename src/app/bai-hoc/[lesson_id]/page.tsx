@@ -1,12 +1,11 @@
 "use client"
-import WordItemBox from "@/components/WordItemBox"
 import Examination from "@/components/WordPage/Examination"
 import ListWord from "@/components/WordPage/ListWord"
 import MultipleChoice from "@/components/WordPage/MutipleChoice"
 import WriteWord from "@/components/WordPage/WriteWord"
 import HeadingPage from "@/components/base/HeadingPage"
 import Loading from "@/components/base/Loading"
-import { BookHeart, CryIcon } from "@/components/icon"
+import { CryIcon } from "@/components/icon"
 import { LessonItem } from "@/model/lesson"
 import { WordItem, WordItemMultipleChoice } from "@/model/word"
 import { getLessonById } from "@/services/lessonService"
@@ -27,7 +26,6 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 	const [wordMultipleChoices, setWordMultipleChoices] = useState<WordItemMultipleChoice[] | undefined>(undefined)
 	const [navTabs, setNavTabs] = useState<INavTabsGame[]>(navTabsGame)
 	const [tabActive, setTabActive] = useState<number>(+tab || 1)
-
 	useEffect(() => {
 		let tab: INavTabsGame = navTabsGame.find(item => item.key === tabActive) as INavTabsGame
 		handleChangeTab(tab)
@@ -113,7 +111,7 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 				<>
 					{tabActive === 1 && <ListWord words={words} />}
 					{tabActive === 2 && <WriteWord />}
-					{tabActive === 3 && <MultipleChoice wordItems={wordMultipleChoices as WordItemMultipleChoice[]} />}
+					{tabActive === 3 && <MultipleChoice wordItems={JSON.parse(JSON.stringify(wordMultipleChoices)) as WordItemMultipleChoice[]} />}
 					{tabActive === 4 && <Examination />}
 				</>
 			)}

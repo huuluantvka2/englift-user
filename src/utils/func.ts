@@ -1,3 +1,4 @@
+import { WordItemMultipleChoice } from "@/model/word"
 import Swal, { SweetAlertIcon, SweetAlertResult } from "sweetalert2"
 
 export const generateRequest = (obj: Object) => {
@@ -70,4 +71,10 @@ export const handlePlayMP3 = (mp3) => {
 export const randomFromZeroToNumber = (to: number) => {
     to++
     return Math.floor(Math.random() * to)
+}
+export const renderClassAnswerMultipleChoice = (question: WordItemMultipleChoice, index: number): string => {
+    if (((question.is_correct === undefined || question.is_correct === true) && question.key_answer === index) || (question.is_correct === false && question.key_correct === index)) {
+        return 'choose'
+    } else if (question.is_correct === false && question.key_answer === index) return 'wrong'
+    else return ''
 }

@@ -27,3 +27,17 @@ export interface IAudit {
     updatedAt?: string | undefined,
     updatedBy?: string | undefined
 }
+
+export interface OptionMultipleChoice {
+    correct: boolean,
+    wrong: boolean,
+    isPlayAudio: boolean,
+    minutes: number,
+    seconds: number
+}
+
+export interface ResultMultipleChoice {
+    correct: number,
+    wrong?: number,
+    total: number
+}
