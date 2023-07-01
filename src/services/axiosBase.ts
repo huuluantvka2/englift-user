@@ -1,6 +1,6 @@
 import { BASE_URL, VERSION1 } from "@/utils/constants";
 import axios from "axios";
-import { getAccessToken } from "./commonService";
+import { clearAccessToken, getAccessToken } from "./commonService";
 import { showSwalMessage } from "@/utils/func";
 import { ApiResponse } from "@/model/common";
 import messageResponse from '../commons/messageResponse.json'
@@ -14,8 +14,14 @@ const apiBase = axios.create({
 apiBase.interceptors.response.use(response => {
     return response?.data
 }, error => {
+    console.log(error)
+    if (error.response?.status === 401) {
+        alert("Hết hạn đăng nhập, vui lòng đăng nhập lại")
+        clearAccessToken()
+        window.location.replace('/dang-nhap')
+        return
+    }
     showSwalMessage('Omg, đã xảy ra lỗi', error?.response?.data?.title || messageResponse[error.response?.data?.message], 'error')
-    console.log(error);
     let data: ApiResponse<boolean> = {
         statusCode: error.response?.data?.statusCode,
         success: false,

@@ -30,7 +30,6 @@ const SearchWord = (props: { searchParams: { search: string } }) => {
     if (response.success) {
       setWords(response.data?.items)
     }
-    console.log(words)
     setLoading(false)
   }
   //#endregion useState

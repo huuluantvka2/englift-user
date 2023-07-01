@@ -26,13 +26,17 @@ import BookHeart from '../../../public/icon/book-heart.svg'
 import Game1 from '../../../public/icon/game-1.svg'
 import Game2 from '../../../public/icon/game-2.svg'
 import Game3 from '../../../public/icon/game-3.svg'
+import Game4 from '../../../public/icon/game-4.svg'
+import Game5 from '../../../public/icon/game-5.svg'
+import Game6 from '../../../public/icon/game-6.svg'
 import Question from '../../../public/icon/question.svg'
 import CorrectAnswer from '../../../public/icon/correct-anwser.svg'
 import WrongAnswer from '../../../public/icon/wrong-anwser.svg'
+import NextBlueArrow from '../../../public/icon/next-blue-arrow.svg'
 export {
     Avatar, Dictionary, Course, Topic, Exam, Android,
     Apple, Facebook, Twitter, Linkedin, Instagram, Star, LargePerson,
     LargeWoman, Success, Dropdown, Search, AvatarThinking, LoudSpeaker, CryIcon,
     NoCourse1, NoCourse2, Viewer, NoImageWord, BookHeart, Game1, Game2, Game3,
-    Question, WrongAnswer, CorrectAnswer
+    Question, WrongAnswer, CorrectAnswer, Game4, Game5, Game6, NextBlueArrow
 }

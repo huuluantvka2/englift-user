@@ -1,24 +1,22 @@
 "use client"
-import { OptionMultipleChoice, ResultMultipleChoice } from "@/model/common"
-import { WordItemMultipleChoice } from "@/model/word"
-import { handlePlayMP3, renderClassAnswerMultipleChoice } from "@/utils/func"
+import { handlePlayMP3, randomList } from "@/utils/func"
 import { useEffect, useState } from "react"
 import EngliftButton from "../base/EngliftButton"
 import ReactApexChart from "../chart/ReactApexChart"
 import { CorrectAnswer, LoudSpeaker, Question } from "../icon"
 import { optionPieChart, renderWidthChartPie } from "@/utils/chart"
-
-const CLASS_NAME_SUBMIT = "multiple-choice-btn-submit"
-const MultipleChoice = (props: { wordItems: WordItemMultipleChoice[] }) => {
+import { IGameWrite } from "@/model/word"
+import { OptionGame, ResultGame } from "@/model/common"
+const CLASS_NAME_SUBMIT = "game-write-btn-submit"
+const GameWrite = (props: { wordItems: IGameWrite[] }) => {
     const { wordItems } = props
     //#region useState
     const [questionActive, setQuestionActive] = useState<number>(0)
     const [submited, setSubmited] = useState<number>(0)
-    const [option, setOption] = useState<OptionMultipleChoice>({ correct: false, wrong: false, isPlayAudio: false, minutes: 0, seconds: 0 })
-    const [result, setResult] = useState<ResultMultipleChoice | undefined>(undefined)
-    const [wordItemsChoices, setWordItemsChoices] = useState<WordItemMultipleChoice[]>(wordItems)
-    const [currentQuestion, setCurrentQuestion] = useState<WordItemMultipleChoice>(wordItemsChoices[0])
-
+    const [option, setOption] = useState<OptionGame>({ correct: false, wrong: false, isPlayAudio: false, minutes: 0, seconds: 0 })
+    const [result, setResult] = useState<ResultGame | undefined>(undefined)
+    const [wordItemsWrite, setWordItemsWrites] = useState<IGameWrite[]>(randomList<IGameWrite>(wordItems))
+    const [currentQuestion, setCurrentQuestion] = useState<IGameWrite>(wordItemsWrite[0])
     //#region handle event
     useEffect(() => {
         const timer = setInterval(() => {
@@ -46,59 +44,56 @@ const MultipleChoice = (props: { wordItems: WordItemMultipleChoice[] }) => {
             document.removeEventListener('keydown', handleListenEvent)
         }
     }, [currentQuestion.key_answer])
+
+    useEffect(() => {
+        document.getElementById('game-write-input')?.focus()
+    }, [questionActive])
     //#endregion
 
     //#endregion 
     //#region handle action
     const handleChangeQuestion = (index: number) => {
         setQuestionActive(index)
-        setCurrentQuestion(wordItemsChoices[index])
+        setCurrentQuestion(wordItemsWrite[index])
     }
 
-    const showHideHint = (word: WordItemMultipleChoice) => {
+    const showHideHint = (word: IGameWrite) => {
         setCurrentQuestion(prev => { return { ...prev, show_hint: !word.show_hint } })
     }
 
     const handleNextQuestion = (noNext?: boolean) => {
         if (noNext === true) {
             console.log('completed')
-            let result: ResultMultipleChoice = {
-                total: wordItemsChoices.length,
-                correct: wordItemsChoices.filter(item => item.is_correct === true).length,
+            let result: ResultGame = {
+                total: wordItemsWrite.length,
+                correct: wordItemsWrite.filter(item => item.is_correct === true).length,
             }
             result.wrong = result.total - result.correct
             setResult(result)
             return
         }
-        if (submited < wordItemsChoices.length) {
+        if (submited < wordItemsWrite.length) {
             let index = questionActive
             let loopCount = 0;
             while (true) {
                 index++
-                if (index >= wordItemsChoices.length) {
+                if (index >= wordItemsWrite.length) {
                     index = -1
                     loopCount++
-                } else if (wordItemsChoices[index].is_correct === undefined) {
-                    setCurrentQuestion(wordItemsChoices[index])
+                } else if (wordItemsWrite[index].is_correct === undefined) {
+                    setCurrentQuestion(wordItemsWrite[index])
                     setQuestionActive(index)
-                    if (option.isPlayAudio && wordItemsChoices[index].audio) handlePlayMP3(wordItemsChoices[index].audio)
+                    if (option.isPlayAudio && wordItemsWrite[index].audio) handlePlayMP3(wordItemsWrite[index].audio)
                     break;
                 }
                 if (loopCount === 3) break;
             }
         }
     }
-
-    const handleChooseAnswer = (key) => {
-        if (currentQuestion.is_correct === undefined) {
-            setCurrentQuestion(prev => ({ ...prev, key_answer: key }))
-        }
-    }
-
     const handleSubmitAnswer = () => {
-        let index = wordItemsChoices.findIndex(x => x.id === currentQuestion.id)
-        currentQuestion.is_correct = currentQuestion.key_answer === currentQuestion.key_correct
-        setWordItemsChoices(prev => {
+        let index = wordItemsWrite.findIndex(x => x.id === currentQuestion.id)
+        currentQuestion.is_correct = currentQuestion.key_answer?.toString().toLowerCase() === wordItemsWrite[index].content.toLowerCase()
+        setWordItemsWrites(prev => {
             const updatePrev = [...prev]
             updatePrev[index].key_answer = currentQuestion.key_answer
             updatePrev[index].is_correct = currentQuestion.is_correct
@@ -108,7 +103,7 @@ const MultipleChoice = (props: { wordItems: WordItemMultipleChoice[] }) => {
         setSubmited(submited + 1)
         setTimeout(() => {
             setOption(prev => ({ ...prev, correct: false, wrong: false }))
-            handleNextQuestion(submited + 1 === wordItemsChoices.length)
+            handleNextQuestion(submited + 1 === wordItemsWrite.length)
         }, 1000)
     }
 
@@ -122,7 +117,7 @@ const MultipleChoice = (props: { wordItems: WordItemMultipleChoice[] }) => {
                     </h2>
                 )}
                 <div className="flex justify-between">
-                    <span className="badge badge-red">{submited}/{wordItems.length}</span>
+                    <span className="badge badge-red">{submited}/{wordItemsWrite.length}</span>
                     <span className="color-pink ">{option.minutes < 10 ? `0${option.minutes}` : option.minutes}:{option.seconds < 10 ? `0${option.seconds}` : option.seconds}</span>
                     <span><input onChange={(e) => setOption(prev => ({ ...prev, isPlayAudio: e.target.checked }))} className="mr-2" type="checkbox" />Phát audio</span>
                 </div>
@@ -130,27 +125,25 @@ const MultipleChoice = (props: { wordItems: WordItemMultipleChoice[] }) => {
                     {currentQuestion.audio && <img onClick={() => handlePlayMP3(currentQuestion.audio)} className='cursor-pointer inline mx-2' src={LoudSpeaker.src} width={30} />}
                 </div>
                 <div className="text-center my-2 bg-[#00800029] p-1 rounded-md">
-                    <b className="mr-2 text-[#0069D9] text-xl">{currentQuestion.content}</b>
-                    <span>{currentQuestion.phonetic[0] === '/' ? currentQuestion.phonetic : `/${currentQuestion.phonetic}/`}</span>
+                    <b className="mr-2 text-[#0069D9] text-xl">{currentQuestion.trans}</b>
                 </div>
-                <img className="inline-block mr-2 cursor-pointer" onClick={() => showHideHint(currentQuestion)} width={40} src={Question.src} /> {currentQuestion.show_hint && <span>{currentQuestion.example}</span>}
-                <h2 className="text-center">Chọn đáp án đúng</h2>
-                <div className="box-game-option grid grid-cols-1 md:grid-cols-2 gap-4 my-3 mx-10 md:mx-14 lg:mx-20 xl:mx-24">
-                    {currentQuestion.random_answers.map((item, index) => (
-                        <div onClick={() => handleChooseAnswer(index)} key={index}
-                            className={`box-game-option-item ${renderClassAnswerMultipleChoice(currentQuestion, index)}`}>
-                            <span>{item}</span>
-                        </div>
-                    ))}
+                <img className="inline-block mr-2 cursor-pointer" onClick={() => showHideHint(currentQuestion)} width={40} src={Question.src} /> {currentQuestion.show_hint && <span>{currentQuestion.hint}</span>}
+                <div className="h-[27px]">
+                    {currentQuestion.is_correct === undefined && <h2 className="text-center">Từ này trong tiếng anh là gì?</h2>}
+                    {((option.correct == false && option.wrong == false) && currentQuestion.is_correct === true) && <div className="text-center"><span className="text-center badge badge-green">Bạn đã trả lời đúng!</span></div>}
+                    {(option.correct == false && option.wrong == false) && currentQuestion.is_correct === false && <div className="text-center"><span className="text-center badge badge-red">Bạn đã trả lời sai! Câu trả lời đúng là: <b className="italic">{currentQuestion.content}</b></span></div>}
+                </div>
+                <div className="w-full text-center my-2">
+                    <input id="game-write-input" disabled={currentQuestion.is_correct !== undefined} value={currentQuestion.key_answer || ''} onChange={e => setCurrentQuestion(prev => ({ ...prev, key_answer: e.target.value }))} className="form-control-web-2 h-[40px] w-[90%] md:w-[80%]" type="text" placeholder="Nhập câu trả lời của bạn" />
                 </div>
                 <div className="box-game-pagination my-5">
                     <ul className="flex justify-center">
-                        {wordItemsChoices.map((item, index) => ((<li onClick={() => handleChangeQuestion(index)} className={`${item.is_correct !== undefined ? (item.is_correct === true ? 'correct' : 'wrong') : ''} ${questionActive === index ? 'active' : ''}`} key={index}><button>{index + 1}</button></li>)))}
+                        {wordItemsWrite.map((item, index) => ((<li onClick={() => handleChangeQuestion(index)} className={`${item.is_correct !== undefined ? (item.is_correct === true ? 'correct' : 'wrong') : ''} ${questionActive === index ? 'active' : ''}`} key={index}><button>{index + 1}</button></li>)))}
                     </ul>
                 </div>
                 <div className="box-game-action flex justify-center items-center">
-                    <EngliftButton id_button="multiple-choice-btn-submit" disabled={currentQuestion.key_answer === undefined || currentQuestion.is_correct !== undefined} onClick={() => handleSubmitAnswer()} className="mx-2 bg-[#087f08] my-2 w-[fit-content] inline text-[#ffffff]" name="Trả lời" />
-                    <EngliftButton disabled={submited == wordItemsChoices.length - 1} onClick={() => handleNextQuestion()} className="mx-2 bg-[#716d6d] my-2w-[fit-content] inline text-[#ffffff]" name="Bỏ qua" />
+                    <EngliftButton id_button="game-write-btn-submit" disabled={!currentQuestion.key_answer || currentQuestion.is_correct !== undefined} onClick={() => handleSubmitAnswer()} className="mx-2 bg-[#087f08] my-2 w-[fit-content] inline text-[#ffffff]" name="Trả lời" />
+                    <EngliftButton disabled={submited == wordItemsWrite.length - 1} onClick={() => handleNextQuestion()} className="mx-2 bg-[#716d6d] my-2w-[fit-content] inline text-[#ffffff]" name="Bỏ qua" />
                 </div>
 
                 {result !== undefined && (
@@ -166,4 +159,4 @@ const MultipleChoice = (props: { wordItems: WordItemMultipleChoice[] }) => {
 }
 
 
-export default MultipleChoice
+export default GameWrite

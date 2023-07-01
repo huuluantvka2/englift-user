@@ -1,13 +1,14 @@
 "use client"
-import Examination from "@/components/WordPage/Examination"
+import GameCompleteSentence from "@/components/WordPage/GameCompleteSentence"
+import GameListen from "@/components/WordPage/GameListen"
+import MultipleChoice from "@/components/WordPage/GameMutipleChoice"
+import GameWrite from "@/components/WordPage/GameWordWrite"
 import ListWord from "@/components/WordPage/ListWord"
-import MultipleChoice from "@/components/WordPage/MutipleChoice"
-import WriteWord from "@/components/WordPage/WriteWord"
 import HeadingPage from "@/components/base/HeadingPage"
 import Loading from "@/components/base/Loading"
 import { CryIcon } from "@/components/icon"
 import { LessonItem } from "@/model/lesson"
-import { WordItem, WordItemMultipleChoice } from "@/model/word"
+import { IWordGame, WordItem, IGameListen, IGameWrite, IMultipleChoice, IGameCompleteSentence } from "@/model/word"
 import { getLessonById } from "@/services/lessonService"
 import { getWordsByLessonId } from "@/services/wordService"
 import { INavTabsGame, navTabsGame } from "@/utils/common"
@@ -23,7 +24,7 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 	const [total, setTotal] = useState<number>(0)
 	const [words, setWords] = useState<WordItem[] | undefined>(undefined)
 	const [lesson, setLesson] = useState<LessonItem | undefined>(undefined)
-	const [wordMultipleChoices, setWordMultipleChoices] = useState<WordItemMultipleChoice[] | undefined>(undefined)
+	const [wordGame, setWordGame] = useState<IWordGame>({ gameListen: undefined, gameCompleteSentence: undefined, gameMultipleChoice: undefined, gameWrite: undefined })
 	const [navTabs, setNavTabs] = useState<INavTabsGame[]>(navTabsGame)
 	const [tabActive, setTabActive] = useState<number>(+tab || 1)
 	useEffect(() => {
@@ -32,9 +33,6 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 		loadLesson(lesson_id)
 		loadData()
 	}, [])
-
-	useEffect(() => {
-	}, [tabActive])
 
 	const loadLesson = async (id) => {
 		const response = await getLessonById(id)
@@ -48,16 +46,23 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 		if (response.success) {
 			setWords(response.data?.items)
 			setTotal(response.data?.totalRecord as number)
-			processDataToGames(response.data?.items as WordItem[])
 		} else setWords([])
+		setWordGame(prev => ({
+			...prev,
+			gameMultipleChoice: processDataMultipleChoice(response.data?.items as WordItem[]),
+			gameWrite: processDataGameWrite(response.data?.items as WordItem[]),
+			gameListen: processDataGameListen(response.data?.items as WordItem[]),
+			gameCompleteSentence: processDataGameCompleteSentence(response.data?.items as WordItem[]),
+		}))
 		setLoading(false)
 	}
+
 	//#endregion
 
 	//#region process Data
-	const processDataToGames = (wordsList: WordItem[]) => {
+	const processDataMultipleChoice = (wordsList: WordItem[]) => {
 		const randomList: string[] = wordsList.map(item => item.trans)
-		const wordItemMultipleChoices: WordItemMultipleChoice[] = []
+		const IMultipleChoices: IMultipleChoice[] = []
 		wordsList.forEach(item => {
 			const random_answers: string[] = []
 			const randomListPerItem = [...randomList.filter(x => x !== item.trans)]
@@ -70,11 +75,50 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 					randomListPerItem.splice(index, 1)
 				}
 			}
-			wordItemMultipleChoices.push({ ...item, random_answers, key_correct })
+			IMultipleChoices.push({ ...item, random_answers, key_correct })
 		})
-		console.log('wordItemMultipleChoices', wordItemMultipleChoices)
-		setWordMultipleChoices(wordItemMultipleChoices)
+		return IMultipleChoices
 	}
+
+	const processDataGameWrite = (wordsList: WordItem[]) => {
+		const newList: IGameWrite[] = []
+		wordsList.forEach((item) => {
+			const hintArr = item.example.split(`${item.content}`)
+			let hint: string = ''
+			if (hintArr.length === 2) {
+				hint = hintArr[0] + "_______" + hintArr[1]
+			}
+			newList.push({ ...item, hint })
+		})
+		return newList
+	}
+
+	const processDataGameListen = (wordsList: WordItem[]) => {
+		const newList: IGameListen[] = []
+		wordsList.forEach((item) => {
+			if (item.audio) {
+				const hintArr = item.example.split(`${item.content}`)
+				let hint: string = ''
+				if (hintArr.length === 2) {
+					hint = hintArr[0] + "_______" + hintArr[1]
+				}
+				newList.push({ ...item, hint })
+			}
+		})
+		return newList
+	}
+
+	const processDataGameCompleteSentence = (wordsList: WordItem[]) => {
+		const newList: IGameCompleteSentence[] = []
+		wordsList.forEach((item) => {
+			const paragraphs: string[] = item.example.split(`${item.content}`)
+			if (paragraphs.length === 2) {
+				newList.push({ ...item, paragraphs, key_answer: Array.from(item.content).map((char, index) => ({ id: index, value: '' })) })
+			}
+		})
+		return newList
+	}
+
 	//#endregion
 	//#region handle action
 	const handleChangeTab = (item: INavTabsGame) => {
@@ -110,9 +154,10 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 			{(isLoading || !words) ? <Loading /> : (
 				<>
 					{tabActive === 1 && <ListWord words={words} />}
-					{tabActive === 2 && <WriteWord />}
-					{tabActive === 3 && <MultipleChoice wordItems={JSON.parse(JSON.stringify(wordMultipleChoices)) as WordItemMultipleChoice[]} />}
-					{tabActive === 4 && <Examination />}
+					{tabActive === 2 && wordGame.gameMultipleChoice?.length && <MultipleChoice wordItems={JSON.parse(JSON.stringify(wordGame.gameMultipleChoice))} />}
+					{tabActive === 3 && wordGame.gameWrite?.length && <GameWrite wordItems={JSON.parse(JSON.stringify(wordGame.gameWrite))} />}
+					{tabActive === 4 && wordGame.gameListen?.length && <GameListen wordItems={JSON.parse(JSON.stringify(wordGame.gameListen))} />}
+					{tabActive === 5 && wordGame.gameCompleteSentence?.length && <GameCompleteSentence wordItems={JSON.parse(JSON.stringify(wordGame.gameCompleteSentence))} />}
 				</>
 			)}
 		</div>

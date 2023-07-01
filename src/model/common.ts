@@ -28,7 +28,7 @@ export interface IAudit {
     updatedBy?: string | undefined
 }
 
-export interface OptionMultipleChoice {
+export interface OptionGame {
     correct: boolean,
     wrong: boolean,
     isPlayAudio: boolean,
@@ -36,7 +36,7 @@ export interface OptionMultipleChoice {
     seconds: number
 }
 
-export interface ResultMultipleChoice {
+export interface ResultGame {
     correct: number,
     wrong?: number,
     total: number

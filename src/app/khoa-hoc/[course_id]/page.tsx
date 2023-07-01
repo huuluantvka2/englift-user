@@ -92,9 +92,9 @@ const Lessons = (props: { params: { course_id: string } }) => {
 				<input onKeyDown={handleEnter} value={search} onChange={(e) => setSearch(e.target.value)} className="form-control-web mt-3 w-[240px] md:w-[320px] lg:w[400px]" id="search-word" type="text" aria-label="Search" placeholder="Tìm tên bài học" />
 				<EngliftButton onClick={handleSearch} type="button" icon={Search.src} widthIcon="30" name="Tìm bài học" className="btn-submit mt-3 mx-2" />
 			</div>
-			{search != undefined && !isLoading && lessons?.length === 0 && <div className="min-h-[200px] flex flex-col justify-center items-center mt-5">
+			{!isLoading && lessons?.length === 0 && <div className="min-h-[200px] flex flex-col justify-center items-center mt-5">
 				<img width={200} src={CryIcon.src} />
-				<p>Rất tiếc chúng tôi không có bài học này</p>
+				<p>Rất tiếc chúng tôi không có bài học nào</p>
 			</div>}
 			{isLoading ? <Loading /> : (
 				<>

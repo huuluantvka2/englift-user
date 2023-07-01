@@ -1,4 +1,4 @@
-import { WordItemMultipleChoice } from "@/model/word"
+import { IMultipleChoice } from "@/model/word"
 import Swal, { SweetAlertIcon, SweetAlertResult } from "sweetalert2"
 
 export const generateRequest = (obj: Object) => {
@@ -72,9 +72,27 @@ export const randomFromZeroToNumber = (to: number) => {
     to++
     return Math.floor(Math.random() * to)
 }
-export const renderClassAnswerMultipleChoice = (question: WordItemMultipleChoice, index: number): string => {
+export const renderClassAnswerMultipleChoice = (question: IMultipleChoice, index: number): string => {
     if (((question.is_correct === undefined || question.is_correct === true) && question.key_answer === index) || (question.is_correct === false && question.key_correct === index)) {
         return 'choose'
     } else if (question.is_correct === false && question.key_answer === index) return 'wrong'
     else return ''
+}
+
+export const randomList = <T>(list: T[]) => {
+    const newList: T[] = []
+    while (true) {
+        if (list.length) {
+            const index = randomFromZeroToNumber(list.length - 1)
+            newList.push(list[index])
+            list.splice(index, 1)
+        } else break;
+    }
+    return newList
+}
+
+export const concatString = <T>(list: T[]) => {
+    let str = ''
+    list.forEach((x: any) => str += x.value)
+    return str.toLowerCase()
 }
