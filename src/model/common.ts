@@ -39,5 +39,5 @@ export interface OptionGame {
 export interface ResultGame {
     correct: number,
     wrong?: number,
-    total: number
+    total: number,
 }

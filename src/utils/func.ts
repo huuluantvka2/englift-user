@@ -96,3 +96,15 @@ export const concatString = <T>(list: T[]) => {
     list.forEach((x: any) => str += x.value)
     return str.toLowerCase()
 }
+
+export const renderLocalDate = (date: string | Date) => {
+    let newDate = typeof date === 'string' ? new Date(date) : date
+    newDate = new Date(newDate.getTime() - newDate.getTimezoneOffset() * 60000)
+    const day = newDate.getDate()
+    const month = newDate.getMonth() + 1
+    const year = newDate.getFullYear()
+    const hour = newDate.getHours()
+    const minute = newDate.getMinutes()
+    const str = `${day < 10 ? `0${day}` : day}/${month < 10 ? `0${month}` : month}/${year} ${hour < 10 ? `0${hour}` : hour}:${minute < 10 ? `0${minute}` : minute}`
+    return str
+}

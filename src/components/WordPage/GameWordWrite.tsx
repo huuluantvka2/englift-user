@@ -8,8 +8,8 @@ import { optionPieChart, renderWidthChartPie } from "@/utils/chart"
 import { IGameWrite } from "@/model/word"
 import { OptionGame, ResultGame } from "@/model/common"
 const CLASS_NAME_SUBMIT = "game-write-btn-submit"
-const GameWrite = (props: { wordItems: IGameWrite[] }) => {
-    const { wordItems } = props
+const GameWrite = (props: { wordItems: IGameWrite[], handleSaveResult: any, isSaveResult: boolean }) => {
+    const { wordItems, handleSaveResult, isSaveResult } = props
     //#region useState
     const [questionActive, setQuestionActive] = useState<number>(0)
     const [submited, setSubmited] = useState<number>(0)
@@ -149,7 +149,9 @@ const GameWrite = (props: { wordItems: IGameWrite[] }) => {
                 {result !== undefined && (
                     <div className="flex flex-col justify-center items-center">
                         <hr className="w-full h-[2px] badge-red my-2" />
-                        <h2 className="text-lg md:text-xl lg:text-2xl">Chúc mừng, đây là kết quả của bạn!</h2>
+                        {
+                            +(result.correct / result.total).toFixed(2) >= 0.95 ? (<h5 className="badge badge-blue">{isSaveResult ? 'Kết quả của bạn đã được lưu lại!' : 'Kết quả của bạn đang được lưu lại!'}</h5>) : (<h5 className="badge badge-red">Cố gắng đạt từ 95% câu đúng nhé, đừng bỏ cuộc!</h5>)
+                        }
                         <ReactApexChart options={optionPieChart} series={[result.correct, result.wrong]} type="donut" width={renderWidthChartPie(window.innerWidth)} />
                     </div>
                 )}

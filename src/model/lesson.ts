@@ -5,5 +5,8 @@ export interface LessonItem {
     description?: string,
     viewed: number,
     image?: string,
-    courseId: string
+    courseId: string,
+    nextTime?: string,
+    lastTimeStudy?: string,
+    levelLesson?: number
 }

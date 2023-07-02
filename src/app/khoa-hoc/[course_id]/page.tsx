@@ -2,24 +2,24 @@
 import EngliftButton from "@/components/base/EngliftButton"
 import HeadingPage from "@/components/base/HeadingPage"
 import Loading from "@/components/base/Loading"
-import { CryIcon, NoCourse1, NoCourse2, Search, Viewer } from "@/components/icon"
+import { CryIcon, NoCourse1, NoCourse2, Search, Star, Viewer } from "@/components/icon"
 import { BaseRequest } from "@/model/common"
 import { CourseItem } from "@/model/course"
 import { LessonItem } from "@/model/lesson"
 import { getAccessToken } from "@/services/commonService"
 import { getCourseById } from "@/services/courseService"
 import { getLessonsByCourseId } from "@/services/lessonService"
-import { showSwalModal } from "@/utils/func"
-import Link from "next/link"
+import { renderLocalDate, showSwalModal } from "@/utils/func"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import ReactPaginate from "react-paginate"
+
 const Lessons = (props: { params: { course_id: string } }) => {
 	const { course_id } = props.params
 	//#region useState
 	const router = useRouter()
 	const [request, setRequest] = useState<BaseRequest>({
-		limit: 15,
+		limit: 10,
 		page: 1,
 		search: "",
 		sort: undefined
@@ -98,28 +98,34 @@ const Lessons = (props: { params: { course_id: string } }) => {
 			</div>}
 			{isLoading ? <Loading /> : (
 				<>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+					<div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
 						{
 							lessons?.map((item, index) => (
-								<div className="item-box-3 mt-10 relative" key={index}>
-									<Link href="#" onClick={(e) => { e.preventDefault(); gotoLessonDetail(item.id) }}>
-										<img className="hover-image my-2 w-[200px] h-[200px] absolute top-[-30px] rounded-md left-1/2 transform -translate-x-1/2" src={item.image || (index % 2 === 0 ? NoCourse1.src : NoCourse2.src)} />
-										<h2 className="text-center text-xl md:text-2xl mt-[180px] color-purple"><b>{item.name}</b></h2>
+								<div key={item.id} onClick={(e) => { e.preventDefault(); gotoLessonDetail(item.id) }} className={`item-box-4 mt-6 ${item.levelLesson ? 'bg-gradient-green' : ''}`}>
+									<img className="my-2 w-[50px] h-[50px] inline left-col" src={item.image || (index % 2 === 0 ? NoCourse1.src : NoCourse2.src)} />
+									<div className="right-col">
+										<h2 className="text-xl md:text-2xl color-purple"><b>{item.name}</b></h2>
 										<p className="text-indent-sm">
 											{item.description}
 										</p>
-										<div className="flex justify-between">
-											<span><img className="inline mr-2" src={Viewer.src} width="20" />0</span>
-											<h4 className="text-end italic">Tác giả: Luân Lê</h4>
+										{item.nextTime && <p className="w-full">Thời điểm vàng: {renderLocalDate(item.nextTime)}</p>}
+										<div className="min-h-[27px]">
+											{
+												item.levelLesson ? ([...Array(item.levelLesson)]).map((_, i) => (<img key={i} className="mx-1 inline" src={Star.src} width="20" />)) : ''
+											}
 										</div>
-									</Link>
+										<div className="flex justify-between">
+											<span className="w-[50%]"><img className="inline mr-2" src={Viewer.src} width="20" />0</span>
+											<h4 className="text-end italic w-[50%]">Tác giả: Luân Lê</h4>
+										</div>
+									</div>
 								</div>
 							))
 						}
 					</div>
 					<ReactPaginate
 						breakLabel="..."
-						className="flex justify-center pagination"
+						className="flex justify-center pagination mt-12"
 						previousClassName=""
 						nextClassName=""
 						pageClassName=""

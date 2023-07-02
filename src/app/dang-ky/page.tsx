@@ -95,21 +95,21 @@ const Register = () => {
             <div className="lg:hidden"><h2 className="text-center text-xl"><b>Hoặc</b></h2></div>
             <form className="mt-5 lg:mt-0 flex flex-col justify-center items-center" onSubmit={handleSubmit(handleSignUp)}>
               <div className="pb-6 relative">
-                <h6>Email:</h6>
+                <h6 className="require">Email:</h6>
                 <input {...register('email', registerOptions.email)} type="email" className="form-control-web w-[260px] md:w-[300px] lg:md:w-[340px] xl:md:w-[380px]" placeholder="Nhập email của bạn" />
                 <small className="text-dander absolute bottom-0 left-0">
                   {errors?.email && errors?.email?.message}
                 </small>
               </div>
               <div className="pb-6 relative">
-                <h6>Mật khẩu:</h6>
+                <h6 className="require">Mật khẩu:</h6>
                 <input {...register('password', registerOptions.password)} className="form-control-web w-[260px] md:w-[300px] lg:md:w-[340px] xl:md:w-[380px]" type="password" placeholder="Nhập mật khẩu" />
                 <small className="text-dander absolute bottom-0 left-0">
                   {errors?.password && errors?.password?.message}
                 </small>
               </div>
               <div className="pb-6 relative">
-                <h6>Họ tên:</h6>
+                <h6 className="require">Họ tên:</h6>
                 <input {...register('fullName', registerOptions.fullName)} className="form-control-web w-[260px] md:w-[300px] lg:md:w-[340px] xl:md:w-[380px]" type="text" placeholder="Nhập nhập họ tên của bạn" />
                 <small className="text-dander absolute bottom-0 left-0">
                   {errors?.fullName && errors?.fullName?.message}

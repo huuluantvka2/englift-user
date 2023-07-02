@@ -9,7 +9,7 @@ import Loading from "@/components/base/Loading"
 import { CryIcon } from "@/components/icon"
 import { LessonItem } from "@/model/lesson"
 import { IWordGame, WordItem, IGameListen, IGameWrite, IMultipleChoice, IGameCompleteSentence } from "@/model/word"
-import { getLessonById } from "@/services/lessonService"
+import { getLessonById, saveHistoryResult } from "@/services/lessonService"
 import { getWordsByLessonId } from "@/services/wordService"
 import { INavTabsGame, navTabsGame } from "@/utils/common"
 import { randomFromZeroToNumber } from "@/utils/func"
@@ -27,6 +27,7 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 	const [wordGame, setWordGame] = useState<IWordGame>({ gameListen: undefined, gameCompleteSentence: undefined, gameMultipleChoice: undefined, gameWrite: undefined })
 	const [navTabs, setNavTabs] = useState<INavTabsGame[]>(navTabsGame)
 	const [tabActive, setTabActive] = useState<number>(+tab || 1)
+	const [isSaveResult, setIsSaveResult] = useState<boolean>(false)
 	useEffect(() => {
 		let tab: INavTabsGame = navTabsGame.find(item => item.key === tabActive) as INavTabsGame
 		handleChangeTab(tab)
@@ -133,6 +134,13 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 		})
 		setNavTabs(newTabs)
 	}
+
+	const handleSaveResult = async () => {
+		let res = await saveHistoryResult(lesson_id)
+		if (res.success) setIsSaveResult(true)
+		console.log('res', res)
+	}
+
 	//#endregion
 
 	return (
@@ -154,10 +162,10 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 			{(isLoading || !words) ? <Loading /> : (
 				<>
 					{tabActive === 1 && <ListWord words={words} />}
-					{tabActive === 2 && wordGame.gameMultipleChoice?.length && <MultipleChoice wordItems={JSON.parse(JSON.stringify(wordGame.gameMultipleChoice))} />}
-					{tabActive === 3 && wordGame.gameWrite?.length && <GameWrite wordItems={JSON.parse(JSON.stringify(wordGame.gameWrite))} />}
-					{tabActive === 4 && wordGame.gameListen?.length && <GameListen wordItems={JSON.parse(JSON.stringify(wordGame.gameListen))} />}
-					{tabActive === 5 && wordGame.gameCompleteSentence?.length && <GameCompleteSentence wordItems={JSON.parse(JSON.stringify(wordGame.gameCompleteSentence))} />}
+					{tabActive === 2 && wordGame.gameMultipleChoice?.length && <MultipleChoice handleSaveResult={handleSaveResult} isSaveResult={isSaveResult} wordItems={JSON.parse(JSON.stringify(wordGame.gameMultipleChoice))} />}
+					{tabActive === 3 && wordGame.gameWrite?.length && <GameWrite handleSaveResult={handleSaveResult} isSaveResult={isSaveResult} wordItems={JSON.parse(JSON.stringify(wordGame.gameWrite))} />}
+					{tabActive === 4 && wordGame.gameListen?.length && <GameListen handleSaveResult={handleSaveResult} isSaveResult={isSaveResult} wordItems={JSON.parse(JSON.stringify(wordGame.gameListen))} />}
+					{tabActive === 5 && wordGame.gameCompleteSentence?.length && <GameCompleteSentence handleSaveResult={handleSaveResult} isSaveResult={isSaveResult} wordItems={JSON.parse(JSON.stringify(wordGame.gameCompleteSentence))} />}
 				</>
 			)}
 		</div>

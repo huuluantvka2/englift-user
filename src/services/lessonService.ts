@@ -1,4 +1,4 @@
-import { ApiResponse, BaseRequest, PaginationData } from "@/model/common";
+import { ApiResponse, BaseRequest, PaginationData, SingleId } from "@/model/common";
 import { LessonItem } from "@/model/lesson";
 import { generateRequest } from "@/utils/func";
 import apiBase from "./axiosBase";
@@ -11,5 +11,8 @@ const getLessonById = (id: string): Promise<ApiResponse<LessonItem>> => {
     return apiBase.get(`/Lessons/${id}`)
 }
 
-export { getLessonsByCourseId, getLessonById };
+const saveHistoryResult = (lessonId: string): Promise<ApiResponse<SingleId>> => {
+    return apiBase.post(`/Lessons/${lessonId}/History`, {})
+}
+export { getLessonsByCourseId, getLessonById, saveHistoryResult };
 
