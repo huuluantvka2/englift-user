@@ -1,14 +1,13 @@
 'use client'
 import HeadingPage from "@/components/base/HeadingPage"
 import Loading from "@/components/base/Loading"
+import ReactApexChart from "@/components/chart/ReactApexChart"
 import { Education1, Education2, Education3, Education4 } from "@/components/icon"
 import { ReportWords } from "@/model/user"
 import { getReports } from "@/services/userService"
 import { chartColumnOption } from "@/utils/chart"
 import { formatDayMonth, renderLocalDate } from "@/utils/func"
 import { useEffect, useState } from "react"
-import ReactApexChart from "react-apexcharts"
-
 const Post = () => {
   const [reports, setReports] = useState<ReportWords | undefined>(undefined)
   const [daysReports, setDaysReport] = useState<number>(7)
