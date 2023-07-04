@@ -7,7 +7,7 @@ import { Android, Apple } from "../icon"
 import { motion } from 'framer-motion';
 const MobileApp = () => {
     return (
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.25 }} variants={staggerContainer()} className="w-full max-w-[1024px] min-h-[400px] md:min-h-[500px] mx-auto pt-[60px] px-5 md:px-10">
+        <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.25 }} variants={staggerContainer()} className="w-full max-w-[1200px] min-h-[400px] md:min-h-[500px] mx-auto pt-[60px] px-5 md:px-10">
             <Heading title="App Mobile" />
             <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
                 <motion.img variants={rotateVariants('left')} className='w-[70%] md:w-[100%] max-w-[700px]' src={ImagePhone.src} alt="Englift" />

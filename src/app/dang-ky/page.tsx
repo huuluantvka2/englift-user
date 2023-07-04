@@ -77,7 +77,7 @@ const Register = () => {
   }
   //#endregion
   return (
-    <div className="w-full max-w-[1024px] mx-auto pt-[10px] px-5 md:px-10">
+    <div className="w-full max-w-[1200px] mx-auto pt-[10px] px-5 md:px-10">
       <HeadingPage title="Đăng ký" />
       {isLoading ? <Loading /> : (
         <>

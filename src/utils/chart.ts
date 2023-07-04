@@ -34,3 +34,55 @@ export const renderWidthChartPie = (width: number) => {
     else if (width >= 768) return 360
     else return 330
 }
+
+export const chartColumnOption = (xcategory: string[]): ApexOptions => {
+    return {
+        chart: {
+            type: 'bar',
+            height: 380,
+        },
+        colors: ['#76bb0c'],
+        plotOptions: {
+            bar: {
+                borderRadius: 2,
+                columnWidth: '50%',
+                dataLabels: {
+                    position: 'top',
+                    total: {
+                        enabled: true,
+                        style: {
+                            fontSize: '13px',
+                            fontWeight: 900,
+                            color: "#76bb0c",
+                        }
+                    }
+                }
+            },
+        },
+        tooltip: {
+            theme: 'dark',
+        },
+
+        xaxis: {
+            categories: xcategory,
+        },
+        grid: {
+            yaxis: {
+                lines: {
+                    show: false,
+                }
+            },
+        },
+        dataLabels: {
+            enabled: true,
+            offsetY: -20,
+            style: {
+                fontSize: '12px',
+                colors: ["#304758"]
+            },
+            formatter: function (val) {
+                return `${val} từ`;
+            },
+        },
+    }
+};

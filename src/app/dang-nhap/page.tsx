@@ -89,7 +89,7 @@ const SignIn = () => {
   }
   //#endregion
   return (
-    <div className="w-full max-w-[1024px] mx-auto pt-[10px] px-5 md:px-10">
+    <div className="w-full max-w-[1200px] mx-auto pt-[10px] px-5 md:px-10">
       <HeadingPage title="Đăng nhập" />
       {isLoading ? <Loading /> : (
         <>
@@ -120,7 +120,7 @@ const SignIn = () => {
                   {errors?.password && errors?.password?.message}
                 </small>
               </div>
-              <EngliftButton type="submit" icon={Success.src} name="Đăng nhập" className="mx-auto bg-[#D21919] my-2 block" />
+              <EngliftButton type="submit" name="Đăng nhập" className="mx-auto bg-[#D21919] my-2 block" />
               <div className="mt-3">Chưa có tài khoản? <Link className="italic underline text-[#a865e1]" href="/dang-ky"><b>Tạo ngay tài khoản học</b></Link></div>
             </form>
           </div>

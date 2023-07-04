@@ -1,11 +1,19 @@
-import { LoginSocial } from "@/model/auth";
-import { ApiResponse } from "@/model/common";
-import { UserItem } from "@/model/user";
+import { ApiResponse, SingleId } from "@/model/common";
+import { ReportRequest, ReportWords, UserItem, UserUpdate } from "@/model/user";
 import apiBase from "./axiosBase";
 
-const getProfile = (body: LoginSocial): Promise<ApiResponse<UserItem>> => {
-    return apiBase.post(`/Users/Profile`, body)
+
+const getProfileByToken = (): Promise<ApiResponse<UserItem>> => {
+    return apiBase.get(`/Users/Profile`)
 }
 
-export { getProfile };
+const updateUserByToken = (body: UserUpdate): Promise<ApiResponse<SingleId>> => {
+    return apiBase.put(`/Users/Profile`, body)
+}
+
+const getReports = (body: ReportRequest): Promise<ApiResponse<ReportWords>> => {
+    return apiBase.post(`/Users/ReportWords`, body)
+}
+
+export { getProfileByToken, updateUserByToken, getReports };
 

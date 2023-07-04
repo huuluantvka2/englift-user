@@ -98,6 +98,7 @@ export const concatString = <T>(list: T[]) => {
 }
 
 export const renderLocalDate = (date: string | Date) => {
+    if (!date) return ''
     let newDate = typeof date === 'string' ? new Date(date) : date
     newDate = new Date(newDate.getTime() - newDate.getTimezoneOffset() * 60000)
     const day = newDate.getDate()
@@ -107,4 +108,9 @@ export const renderLocalDate = (date: string | Date) => {
     const minute = newDate.getMinutes()
     const str = `${day < 10 ? `0${day}` : day}/${month < 10 ? `0${month}` : month}/${year} ${hour < 10 ? `0${hour}` : hour}:${minute < 10 ? `0${minute}` : minute}`
     return str
+}
+
+export const formatDayMonth = (arr: string[]) => {
+    const newArray = arr.map(item => item.substring(0, item.lastIndexOf('/')))
+    return newArray
 }

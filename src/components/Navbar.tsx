@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import LogoImage from '../../public/logo/logo.png'
 import { navVariants } from '@/utils/motion';
 import Link from 'next/link'
-import { clearAccessToken, getProfileLocal } from '@/services/commonService';
+import { clearAccessToken, getProfileLocal, setProfileLocal } from '@/services/commonService';
 import { UserLocal } from '@/model/user';
 import { Avatar, Dropdown, Star } from './icon';
 import { showSwalModal, showSwalSuccessMessage } from '@/utils/func';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { getProfileByToken } from '@/services/userService';
 const NavBar = () => {
     //#region useState
     const router = useRouter()
@@ -21,11 +22,25 @@ const NavBar = () => {
     useEffect(() => {
         let userLocal = getProfileLocal()
         setUser(userLocal)
+        loadData()
     }, [])
 
     useEffect(() => {
         if (isOpen === true) setIsOpen(false)
     }, [pathname, searchParams])
+
+    const loadData = async () => {
+        const res = await getProfileByToken()
+        if (res.success) {
+            if (user?.fullName != res.data?.fullName) {
+                setUser((prev: any) => {
+                    let data = { ...prev, fullName: res.data?.fullName }
+                    setProfileLocal(data)
+                    return data
+                })
+            }
+        }
+    }
     //#region handle
     const handleLogout = (e) => {
         e.preventDefault();
@@ -94,7 +109,8 @@ const NavBar = () => {
                                 <img className="mx-1" src={Dropdown.src} width="30" />
                             </div>
                             <div className="dropdown-menu flex flex-col justify-center items-start rounded-lg py-2 bg-[#ffffff] absolute" aria-labelledby="dropdownNUserD" x-placement="bottom-start">
-                                <Link className="dropdown-item" href="">Thông tin tài khoản </Link>
+                                <Link className="dropdown-item" href="/thanh-tich">Thành tích học tập </Link>
+                                <Link className="dropdown-item" href="/tai-khoan">Trang cá nhân</Link>
                                 <Link className="dropdown-item" href="">Thoát<i className="fas fa-sign-out-alt"> </i></Link>
                             </div>
                         </div>) : (<>
@@ -116,7 +132,8 @@ const NavBar = () => {
                             <img className="mx-1" src={Dropdown.src} width="30" />
                         </div>
                         <div className="dropdown-menu min-w-[200px] flex flex-col justify-center items-start rounded-lg py-2 bg-[#ffffff] absolute" aria-labelledby="dropdownNUserD" x-placement="bottom-start">
-                            <Link className="dropdown-item" href="">Thông tin tài khoản </Link>
+                            <Link className="dropdown-item" href="/thanh-tich">Thành tích học tập </Link>
+                            <Link className="dropdown-item" href="/tai-khoan">Trang cá nhân</Link>
                             <Link onClick={(e) => handleLogout(e)} className="dropdown-item" href="">Thoát<i className="fas fa-sign-out-alt"> </i></Link>
                         </div>
                     </div>) : (<>

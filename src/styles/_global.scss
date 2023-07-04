@@ -46,14 +46,14 @@ body {
   transition-duration: 0.5s;
 }
 .btn-default:hover {
-  background: #fb397d;
+  background: $color_pink;
   border-color: transparent;
   -webkit-transition-duration: 0.5s;
   -o-transition-duration: 0.5s;
   transition-duration: 0.5s;
 }
 .text-hover:hover {
-  color: #fb397d;
+  color: $color_pink;
   transition-duration: 0.5s;
 }
 
@@ -111,19 +111,19 @@ body {
   padding: 0 15px;
 }
 .form-control-web:focus-visible {
-  outline-color: #fb397d;
+  outline-color: $color_pink;
 }
 
-.form-control-web-2 {
+.form-control-web-2,.form-control-web-4 {
   border: 1px solid #0069d9;
-
   border-radius: 24px;
   color: #000000;
   padding: 0 15px;
+  &:focus-visible {
+    outline-color: #0069d9;
+  }
 }
-.form-control-web-2:focus-visible {
-  outline-color: #0069d9;
-}
+
 
 .form-control-web-3 {
   background-color: transparent;
@@ -135,6 +135,16 @@ body {
     border-bottom: 2px solid green;
   }
 }
+
+.form-control-web-4{
+  border: 1px solid #80808052;
+  border-radius: 4px;
+  padding: 0 8px;
+  &:focus-visible {
+    outline-color: #0069d999;
+  }
+}
+
 .btn-submit,.btn-go {
   background: linear-gradient(60deg, #ec407a, #d81b60);
   color: #fff;
@@ -163,7 +173,7 @@ body {
     position: absolute;
     height: 1px;
     width: 80px;
-    background-color: #fb397d;
+    background-color: $color_pink;
     left: 50%;
     bottom: 0;
     transform: translate(-50%, 0);
@@ -244,6 +254,20 @@ body {
   }
 }
 
+.item-box-5{
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #1a232e;
+  min-height: 100px;
+  border-width: 4px;
+  .left{
+    width: calc(100% - 70px);
+  }
+  .right{
+    width: 65px;
+  }
+}
 .text-bg {
   background-color: #8d39a3;
 }
@@ -257,7 +281,7 @@ body {
   background: linear-gradient(to left, #7873ed, $color_purple);
 }
 .color-pink {
-  color: #fb397d;
+  color: $color_pink;
 }
 .color-purple {
   color: $color_purple;
@@ -283,7 +307,7 @@ body {
   color: black;
   position: absolute;
   left: 0;
-  bottom: -90px;
+  bottom: -130px;
   transition: 0.4s;
   .dropdown-item {
     padding: 4px 12px;
@@ -357,6 +381,15 @@ body {
 .border-purple {
   border: 2px solid #a865e1;
 }
+.color-red {
+  color: #c42733;
+}
+.color-green {
+  color: #76bb0c;
+}
+.color-blue {
+  color: #2778c4;
+}
 
 .list-circle li {
   list-style: circle !important;
@@ -377,7 +410,7 @@ body {
 }
 
 .nav-tabs {
-  border-bottom: 2px solid #fb397d;
+  border-bottom: 2px solid $color_pink;
   &-item {
     margin: 4px 4px;
     button {
@@ -387,8 +420,8 @@ body {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border: 1px solid #fb397d;
-      color: #fb397d;
+      border: 1px solid $color_pink;
+      color: $color_pink;
     }
   }
   &-item.active button {
@@ -398,7 +431,7 @@ body {
 }
 .box-game {
   background-color: $color_white;
-  border: 1px solid #fb397d;
+  border: 1px solid $color_pink;
   color: #000000;
   &-option {
     &-item {
@@ -464,3 +497,35 @@ body {
   color: #ff4d4f;
 }
 
+.container{
+  color:#000;
+  .left-info,.right-info{
+    background-color: #ffffff;
+    border:1px solid gray;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  }
+  .left-info-header,.right-info-header{
+    .image{
+      background-color: $color_pink;
+      padding:8px 8px;
+      border-radius: 0.25rem;
+    }
+  }
+  .avatar{
+    text-align: center;
+    height: calc(100% - 50px);
+  }
+}
+.disabled{
+  cursor: not-allowed;
+  background-color:#d3d1d1a1;;
+}
+.swal2-shown{
+  padding: 0 !important;
+}
+.apexcharts-menu{
+  background: #000000d9 !important;
+}
+.apexcharts-menu-item:hover{
+  background: #ff1493ad !important;
+}

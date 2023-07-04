@@ -16,13 +16,13 @@ const listItem: Array<{ name: string, link?: string, icon: any }> = [
 const FunctionItem = () => {
 
     return (
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.25, }} variants={staggerContainer(null, null)} className="w-full max-w-[1024px] min-h-[400px] md:min-h-[500px] mx-auto pt-[100px] px-5 md:px-10">
+        <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.25, }} variants={staggerContainer(null, null)} className="w-full max-w-[1200px] min-h-[400px] md:min-h-[500px] mx-auto pt-[100px] px-5 md:px-10">
             <Heading title="Tính năng chính" />
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {
                     listItem.map((item, index) => (
                         <motion.div variants={fadeIn('right', 'spring', (index + 1) * 0.5, 0.1, 25)} className="item-box text-lg font-bold cursor-pointer" key={index}>
-                            <Link href={item.link as Url}>
+                            <Link className="flex flex-col items-center" href={item.link as Url}>
                                 <img className="my-2" src={item.icon.src} width="40" />
                                 <span>{item.name}</span>
                             </Link>

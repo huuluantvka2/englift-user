@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const DescriptionHome = () => {
     return (
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.25 }} variants={staggerContainer()} className="w-full max-w-[1024px] mx-auto pt-[60px] px-5 md:px-10">
+        <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.25 }} variants={staggerContainer()} className="w-full max-w-[1200px] mx-auto pt-[60px] px-5 md:px-10">
             <Heading title="Mô tả về Englift" />
             <motion.div variants={textVariant(0.75)}>
                 <p className="text-indent mt-2">Englift là một trang web học tiếng Anh đa chức năng, nhằm giúp bạn tăng cường từ vựng, nắm vững ngữ pháp và chuẩn bị cho kỳ thi Toeic. Với một loạt các tính năng hữu ích, chúng tôi cam kết mang đến cho bạn một trải nghiệm học tập đáng nhớ.

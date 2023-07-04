@@ -33,10 +33,19 @@ import Question from '../../../public/icon/question.svg'
 import CorrectAnswer from '../../../public/icon/correct-anwser.svg'
 import WrongAnswer from '../../../public/icon/wrong-anwser.svg'
 import NextBlueArrow from '../../../public/icon/next-blue-arrow.svg'
+import UserHeart from '../../../public/icon/user-heart.svg'
+import UserSquare from '../../../public/icon/user-square.svg'
+import SaveIcon from '../../../public/icon/save.svg'
+import AvatarGirl from '../../../public/icon/avatar-girl.svg'
+import Education1 from '../../../public/icon/education-1.svg'
+import Education2 from '../../../public/icon/education-2.svg'
+import Education3 from '../../../public/icon/education-3.svg'
+import Education4 from '../../../public/icon/education-4.svg'
 export {
     Avatar, Dictionary, Course, Topic, Exam, Android,
     Apple, Facebook, Twitter, Linkedin, Instagram, Star, LargePerson,
     LargeWoman, Success, Dropdown, Search, AvatarThinking, LoudSpeaker, CryIcon,
     NoCourse1, NoCourse2, Viewer, NoImageWord, BookHeart, Game1, Game2, Game3,
-    Question, WrongAnswer, CorrectAnswer, Game4, Game5, Game6, NextBlueArrow
+    Question, WrongAnswer, CorrectAnswer, Game4, Game5, Game6, NextBlueArrow,
+    UserHeart, UserSquare, SaveIcon, AvatarGirl, Education1, Education2, Education3, Education4
 }

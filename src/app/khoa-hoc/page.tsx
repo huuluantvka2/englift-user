@@ -57,7 +57,7 @@ const Courses = () => {
 	//#endregion
 
 	return (
-		<div className="w-full max-w-[1248px] mx-auto pt-[10px] px-5 md:px-10">
+		<div className="w-full max-w-[1200px] mx-auto pt-[10px] px-5 md:px-10">
 			<HeadingPage title="Danh sách khóa học" />
 			<div>Tổng hợp các khóa học tiếng Anh theo chủ đề kết hợp với âm thanh, hình ảnh, mẫu câu ví dụ. Tổng hợp từ nhiều nguồn trên Internet và được chia sẻ hoàn toàn miễn phí tại Englift.</div>
 			<div className="flex justify-center flex-col items-center md:flex-row">

@@ -144,7 +144,7 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 	//#endregion
 
 	return (
-		<div className="w-full max-w-[1248px] mx-auto pt-[10px] px-5 md:px-10">
+		<div className="w-full max-w-[1200px] mx-auto pt-[10px] px-5 md:px-10">
 			<HeadingPage title={`${!lesson?.name ? 'Đang tải...' : `${lesson?.name} / ${total} Từ vựng`}`} />
 			<div className="my-3">{lesson?.description} Chúc bạn học tốt!</div>
 			{!isLoading && words?.length === 0 && <div className="min-h-[200px] flex flex-col justify-center items-center mt-5">

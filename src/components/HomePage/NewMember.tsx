@@ -11,7 +11,7 @@ const members: Array<{ image: string, name: string, link?: string, comment: stri
 ]
 const NewMember = () => {
     return (
-        <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.25 }} variants={staggerContainer()} className="w-full max-w-[1024px] mx-auto pt-[60px] px-5 md:px-10">
+        <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.25 }} variants={staggerContainer()} className="w-full max-w-[1200px] mx-auto pt-[60px] px-5 md:px-10">
             <Heading title="Thành viên mới" />
             <div className="grid grid-cols-1 md:grid-cols-3">
                 {

@@ -85,7 +85,7 @@ const Lessons = (props: { params: { course_id: string } }) => {
 	//#endregion
 
 	return (
-		<div className="w-full max-w-[1248px] mx-auto pt-[10px] px-5 md:px-10">
+		<div className="w-full max-w-[1200px] mx-auto pt-[10px] px-5 md:px-10">
 			<HeadingPage title={`${!course?.name ? 'Đang tải...' : `${course?.name} / Danh sách bài học`}`} />
 			<div>{course?.description} Chúc bạn học tốt!</div>
 			<div className="flex justify-center flex-col items-center md:flex-row">
