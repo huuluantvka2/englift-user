@@ -22,7 +22,9 @@ const NavBar = () => {
     useEffect(() => {
         let userLocal = getProfileLocal()
         setUser(userLocal)
-        loadData()
+        if (userLocal?.id) {
+            loadData()
+        }
     }, [])
 
     useEffect(() => {
