@@ -1,3 +1,4 @@
+import AppScreenshot from "@/components/HomePage/AppScreenshot";
 import DescriptionHome from "@/components/HomePage/DescriptionHome";
 import FunctionItem from "@/components/HomePage/FunctionItem";
 import MobileApp from "@/components/HomePage/MobileApp";
@@ -19,6 +20,7 @@ export default function HomePage() {
         <div className="gradient-04" />
         <DescriptionHome />
         <ViewerHome />
+        <AppScreenshot />
         <NewMember />
         <OurTeam />
       </div>

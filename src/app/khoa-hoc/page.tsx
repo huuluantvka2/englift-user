@@ -6,6 +6,7 @@ import { CryIcon, NoCourse1, NoCourse2, Search, Viewer } from "@/components/icon
 import { BaseRequest } from "@/model/common"
 import { CourseItem } from "@/model/course"
 import { getCourses } from "@/services/courseService"
+import { randomImage } from "@/utils/images"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import ReactPaginate from "react-paginate"
@@ -30,6 +31,7 @@ const Courses = () => {
 		setLoading(true)
 		const response = await getCourses(request)
 		if (response.success) {
+			response.data?.items.forEach(x => { !x.image && (x.image = randomImage()) })
 			setCourses(response.data?.items)
 			setTotal(response.data?.totalRecord as number)
 		}
@@ -75,7 +77,7 @@ const Courses = () => {
 							courses?.map((item, index) => (
 								<div className="item-box-3 mt-10 relative" key={index}>
 									<Link href={`/khoa-hoc/${item.id}`}>
-										<img className="hover-image my-2 h-[200px] w-[200px] absolute top-[-30px] rounded-md left-1/2 transform -translate-x-1/2" src={item.image || (index % 2 === 0 ? NoCourse1.src : NoCourse2.src)} />
+										<img className="hover-image my-2 h-[200px] w-[90%] absolute top-[-30px] rounded-md left-1/2 transform -translate-x-1/2" src={item.image} />
 										<h2 className="text-center text-xl md:text-2xl mt-[180px] color-purple"><b>{item.name}</b></h2>
 										<p className="text-indent-sm">
 											{item.description}

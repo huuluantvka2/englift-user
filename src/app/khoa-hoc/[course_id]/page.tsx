@@ -10,6 +10,7 @@ import { getAccessToken } from "@/services/commonService"
 import { getCourseById } from "@/services/courseService"
 import { getLessonsByCourseId } from "@/services/lessonService"
 import { renderLocalDate, showSwalModal } from "@/utils/func"
+import { randomImage } from "@/utils/images"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import ReactPaginate from "react-paginate"
@@ -48,6 +49,7 @@ const Lessons = (props: { params: { course_id: string } }) => {
 		setLoading(true)
 		const response = await getLessonsByCourseId({ course_id, request })
 		if (response.success) {
+			response.data?.items.forEach(x => { !x.image && (x.image = randomImage()) })
 			setLessons(response.data?.items)
 			setTotal(response.data?.totalRecord as number)
 		}
@@ -102,7 +104,7 @@ const Lessons = (props: { params: { course_id: string } }) => {
 						{
 							lessons?.map((item, index) => (
 								<div key={item.id} onClick={(e) => { e.preventDefault(); gotoLessonDetail(item.id) }} className={`item-box-4 mt-6 ${item.levelLesson ? 'bg-gradient-green' : ''}`}>
-									<img className="my-2 w-[50px] h-[50px] inline left-col" src={item.image || (index % 2 === 0 ? NoCourse1.src : NoCourse2.src)} />
+									<img className="my-2 w-[50px] h-[50px] inline left-col rounded-full" src={item.image} />
 									<div className="right-col">
 										<h2 className="text-xl md:text-2xl color-purple"><b>{item.name}</b></h2>
 										<p className="text-indent-sm">

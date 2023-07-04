@@ -8,7 +8,7 @@ import { Url } from "next/dist/shared/lib/router/router";
 
 const listItem: Array<{ name: string, link?: string, icon: any }> = [
     { name: 'Kho từ vựng', icon: Dictionary, link: '/tu-dien-anh-viet?search=' },
-    { name: 'Khóa học', icon: Course, link: '#' },
+    { name: 'Khóa học', icon: Course, link: '/khoa-hoc' },
     { name: 'Từ vựng theo chủ đề', icon: Topic, link: '#' },
     { name: 'Thi Toeic', icon: Exam, link: 'https://online.toeicmentors.com' }
 ]
