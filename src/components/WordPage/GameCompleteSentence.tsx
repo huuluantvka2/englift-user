@@ -35,10 +35,19 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
 
     useEffect(() => {
         const handleListenEvent = (e) => {
-            if (e.key === 'Enter' && !document.getElementById(CLASS_NAME_SUBMIT)?.classList.contains('cursor-not-allowed')) {
+            if (e.key === 'Backspace' && !e.target.value) {
+                let index = +e.target.id.split(`${CLASS_NAME_INPUT}-`)[1]
+                if (index > 0) {
+                    setTimeout(() => {
+                        document.getElementById(`${CLASS_NAME_INPUT}-${index - 1}`)?.focus()
+                    }, 1)
+                }
+            }
+            else if (e.key === 'Enter' && !document.getElementById(CLASS_NAME_SUBMIT)?.classList.contains('cursor-not-allowed')) {
                 handleSubmitAnswer()
             }
         }
+        console.log(currentQuestion.key_answer)
         if (currentQuestion.key_answer !== undefined) {
             document.addEventListener('keydown', handleListenEvent)
         }
