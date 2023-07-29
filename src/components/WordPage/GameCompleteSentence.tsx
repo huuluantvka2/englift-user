@@ -27,7 +27,12 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
                 else return { ...prev, seconds: prev.seconds + 1 }
             })
         }, 1000)
-        if (result) clearInterval(timer)
+        if (result) {
+            clearInterval(timer)
+            if (+(result.correct / result.total).toFixed(2) >= 0.95 && isSaveResult === false) {
+                handleSaveResult()
+            }
+        }
         return () => {
             clearInterval(timer)
         }
