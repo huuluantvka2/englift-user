@@ -60,7 +60,7 @@ const NavBar = () => {
         <motion.nav initial="hidden" variants={navVariants}
             whileInView="show" className="flex items-center justify-between flex-wrap p-6 bg-navbar">
             <div className="flex items-center flex-shrink-0 text-white mr-6 lg:mr-32">
-                <Link href="/"><img width={60} height={'auto'} src={LogoImage.src} /></Link>
+                <Link href="/"><img width={60} style={{borderRadius:'100px'}} height={'auto'} src={LogoImage.src} /></Link>
             </div>
             <div className="block lg:hidden ml-auto">
                 <button
@@ -92,9 +92,6 @@ const NavBar = () => {
                 </Link>
                 <Link href="bai-viet" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Bài viết
-                </Link>
-                <Link href="https://online.toeicmentors.com" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
-                    Thi thử Toeic
                 </Link>
                 <Link href="/gioi-thieu" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4 text-hover">
                     Giới thiệu

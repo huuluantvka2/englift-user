@@ -1,5 +1,5 @@
 "use client"
-import EngliftButton from "@/components/base/EngliftButton"
+import KorealiftButton from "@/components/base/EngliftButton"
 import HeadingPage from "@/components/base/HeadingPage"
 import Loading from "@/components/base/Loading"
 import { CryIcon, NoCourse1, NoCourse2, Search, Viewer } from "@/components/icon"
@@ -61,10 +61,10 @@ const Courses = () => {
 	return (
 		<div className="w-full max-w-[1200px] mx-auto pt-[10px] px-5 md:px-10">
 			<HeadingPage title="Danh sách khóa học" />
-			<div>Tổng hợp các khóa học tiếng Anh theo chủ đề kết hợp với âm thanh, hình ảnh, mẫu câu ví dụ. Tổng hợp từ nhiều nguồn trên Internet và được chia sẻ hoàn toàn miễn phí tại Englift.</div>
+			<div>Tổng hợp các khóa học tiếng Hàn theo chủ đề kết hợp với âm thanh, hình ảnh, mẫu câu ví dụ. Tổng hợp từ nhiều nguồn trên Internet và được chia sẻ hoàn toàn miễn phí tại Korealift.</div>
 			<div className="flex justify-center flex-col items-center md:flex-row">
 				<input onKeyDown={handleEnter} value={search} onChange={(e) => setSearch(e.target.value)} className="form-control-web mt-3 w-[240px] md:w-[320px] lg:w[400px]" id="search-word" type="text" aria-label="Search" placeholder="Tìm tên khóa học" />
-				<EngliftButton onClick={handleSearch} type="button" icon={Search.src} widthIcon="30" name="Tìm khóa học" className="btn-submit mt-3 mx-2" />
+				<KorealiftButton onClick={handleSearch} type="button" icon={Search.src} widthIcon="30" name="Tìm khóa học" className="btn-submit mt-3 mx-2" />
 			</div>
 			{search != undefined && !isLoading && courses?.length === 0 && <div className="min-h-[200px] flex flex-col justify-center items-center mt-5">
 				<img width={200} src={CryIcon.src} />

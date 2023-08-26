@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-export interface IEngliftButton {
+export interface IKorealiftButton {
     name: string,
     className?: string,
     onClick?: any,
@@ -10,7 +10,7 @@ export interface IEngliftButton {
     id_button?: string
 }
 
-const EngliftButton = (props: IEngliftButton) => {
+const KorealiftButton = (props: IKorealiftButton) => {
     let { name, className, icon, disabled, widthIcon, onClick, type, id_button } = props
     className += disabled === true ? ' opacity-60 cursor-not-allowed' : ' cursor-pointer'
     return (
@@ -23,4 +23,4 @@ const EngliftButton = (props: IEngliftButton) => {
     )
 }
 
-export default EngliftButton
+export default KorealiftButton

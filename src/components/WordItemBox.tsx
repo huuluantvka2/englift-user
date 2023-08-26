@@ -14,12 +14,12 @@ const WordItemBox = (props: { item: WordItem, index: number }) => {
                 </div>
                 <img className="item-box-2-image" src={NoImageWord.src} width={60} />
             </div>
-            <p className="my-2">
-                {item.position.replaceAll('/', ',').split(',').map((item, index) => (
+            <p className="my-2 h-[40px]">
+                {item.position?.replaceAll('/', ',').split(',').map((item, index) => (
                     <span key={index} className={`mr-1 badge ${renderBadgeClassname(item)}`}>{item}</span>
                 ))}
             </p>
-            <p>👉 <span className="">{item.trans}</span></p>
+            <p>👉 <span className="">{item.trans} {item.china && `(${item.china})`}</span></p>
             <p><span className="italic">{item.example}</span></p>
         </div>
     )

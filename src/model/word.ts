@@ -5,6 +5,7 @@ export interface WordItem {
     trans: string,
     example: string,
     phonetic: string,
+    china:string,
     image: string,
     position: string,
 }

@@ -1,5 +1,5 @@
 'use client'
-import EngliftButton from "@/components/base/EngliftButton"
+import KorealiftButton from "@/components/base/EngliftButton"
 import HeadingPage from "@/components/base/HeadingPage"
 import Loading from "@/components/base/Loading"
 import { Avatar, AvatarGirl, SaveIcon, UserHeart, UserSquare } from "@/components/icon"
@@ -146,7 +146,7 @@ const InformationUser = () => {
                     <textarea {...register('introduce')} rows={3} className="form-control-web-4 w-full" />
                   </div>
                 </div>
-                <EngliftButton type="submit" icon={SaveIcon.src} name="Lưu" className="mx-auto badge-green text-[#ffffff] my-2 block" />
+                <KorealiftButton type="submit" icon={SaveIcon.src} name="Lưu" className="mx-auto badge-green text-[#ffffff] my-2 block" />
               </form>
             </div>
           </div>

@@ -1,5 +1,4 @@
 "use client"
-import EngliftButton from "@/components/base/EngliftButton";
 import HeadingPage from "@/components/base/HeadingPage";
 import Loading from "@/components/base/Loading";
 import { Success } from "@/components/icon";
@@ -14,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CatQuestionMark from '../../../public/logo/cat-question-mark.png';
+import KorealiftButton from "@/components/base/EngliftButton";
 
 const googleProvider = new GoogleAuthProvider();
 const auth = getAuth(firebase_app);
@@ -88,9 +88,9 @@ const Register = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="flex flex-col justify-start items-center">
               <b>Tài khoản mạng xã hội?</b>
-              <EngliftButton onClick={handleLoginGoogle} name="Tạo tài khoản với Google" className="mx-auto bg-[#D21919] my-2 min-w-[250px] block" />
-              <EngliftButton disabled={true} name="Tạo tài khoản với Facebook" className="mx-auto bg-[#007BFE] my-2 min-w-[250px] block" />
-              <EngliftButton disabled={true} name="Tạo tài khoản với Apple" className="mx-auto bg-[#000000] my-2 min-w-[250px] block" />
+              <KorealiftButton onClick={handleLoginGoogle} name="Tạo tài khoản với Google" className="mx-auto bg-[#D21919] my-2 min-w-[250px] block" />
+              <KorealiftButton disabled={true} name="Tạo tài khoản với Facebook" className="mx-auto bg-[#007BFE] my-2 min-w-[250px] block" />
+              <KorealiftButton disabled={true} name="Tạo tài khoản với Apple" className="mx-auto bg-[#000000] my-2 min-w-[250px] block" />
             </div>
             <div className="lg:hidden"><h2 className="text-center text-xl"><b>Hoặc</b></h2></div>
             <form className="mt-5 lg:mt-0 flex flex-col justify-center items-center" onSubmit={handleSubmit(handleSignUp)}>
@@ -115,7 +115,7 @@ const Register = () => {
                   {errors?.fullName && errors?.fullName?.message}
                 </small>
               </div>
-              <EngliftButton type="submit" icon={Success.src} name="Đăng ký" className="mx-auto bg-[#D21919] my-2 block" />
+              <KorealiftButton type="submit" icon={Success.src} name="Đăng ký" className="mx-auto bg-[#D21919] my-2 block" />
               <div className="mt-3">Đã có tài khoản? <Link className="italic underline text-[#a865e1]" href="/dang-nhap"><b>Đăng nhập ngay</b></Link></div>
             </form>
           </div>

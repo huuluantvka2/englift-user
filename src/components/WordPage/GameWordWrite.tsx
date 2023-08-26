@@ -1,12 +1,12 @@
 "use client"
 import { handlePlayMP3, randomList } from "@/utils/func"
 import { useEffect, useState } from "react"
-import EngliftButton from "../base/EngliftButton"
 import ReactApexChart from "../chart/ReactApexChart"
 import { CorrectAnswer, LoudSpeaker, Question } from "../icon"
 import { optionPieChart, renderWidthChartPie } from "@/utils/chart"
 import { IGameWrite } from "@/model/word"
 import { OptionGame, ResultGame } from "@/model/common"
+import KorealiftButton from "../base/EngliftButton"
 const CLASS_NAME_SUBMIT = "game-write-btn-submit"
 const GameWrite = (props: { wordItems: IGameWrite[], handleSaveResult: any, isSaveResult: boolean }) => {
     const { wordItems, handleSaveResult, isSaveResult } = props
@@ -147,8 +147,8 @@ const GameWrite = (props: { wordItems: IGameWrite[], handleSaveResult: any, isSa
                     </ul>
                 </div>
                 <div className="box-game-action flex justify-center items-center">
-                    <EngliftButton id_button="game-write-btn-submit" disabled={!currentQuestion.key_answer || currentQuestion.is_correct !== undefined} onClick={() => handleSubmitAnswer()} className="mx-2 bg-[#087f08] my-2 w-[fit-content] inline text-[#ffffff]" name="Trả lời" />
-                    <EngliftButton disabled={submited == wordItemsWrite.length - 1} onClick={() => handleNextQuestion()} className="mx-2 bg-[#716d6d] my-2w-[fit-content] inline text-[#ffffff]" name="Bỏ qua" />
+                    <KorealiftButton id_button="game-write-btn-submit" disabled={!currentQuestion.key_answer || currentQuestion.is_correct !== undefined} onClick={() => handleSubmitAnswer()} className="mx-2 bg-[#087f08] my-2 w-[fit-content] inline text-[#ffffff]" name="Trả lời" />
+                    <KorealiftButton disabled={submited == wordItemsWrite.length - 1} onClick={() => handleNextQuestion()} className="mx-2 bg-[#716d6d] my-2w-[fit-content] inline text-[#ffffff]" name="Bỏ qua" />
                 </div>
 
                 {result !== undefined && (

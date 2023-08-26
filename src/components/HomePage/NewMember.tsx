@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 const stars = Array(5).fill(null);
 const members: Array<{ image: string, name: string, link?: string, comment: string }> = [
-    { name: 'Luân Lê', comment: 'I love Englift', image: LargePerson.src },
+    { name: 'Luân Lê', comment: 'I love Korealift', image: LargePerson.src },
     { name: 'Ly Nguyễn', comment: 'Good Website', image: LargeWoman.src },
 ]
 const NewMember = () => {

@@ -3,10 +3,10 @@ import { OptionGame, ResultGame } from "@/model/common"
 import { optionPieChart, renderWidthChartPie } from "@/utils/chart"
 import { concatString, handlePlayMP3, randomList } from "@/utils/func"
 import { useEffect, useState } from "react"
-import EngliftButton from "../base/EngliftButton"
 import ReactApexChart from "../chart/ReactApexChart"
 import { CorrectAnswer, LoudSpeaker, Question } from "../icon"
 import { IGameCompleteSentence } from "@/model/word"
+import KorealiftButton from "../base/EngliftButton"
 const CLASS_NAME_SUBMIT = "game-complete-sentence-btn-submit"
 const CLASS_NAME_INPUT = "game-complete-sentence-input"
 
@@ -52,7 +52,6 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
                 handleSubmitAnswer()
             }
         }
-        console.log(currentQuestion.key_answer)
         if (currentQuestion.key_answer !== undefined) {
             document.addEventListener('keydown', handleListenEvent)
         }
@@ -149,7 +148,7 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
                     <span className="color-pink ">{option.minutes < 10 ? `0${option.minutes}` : option.minutes}:{option.seconds < 10 ? `0${option.seconds}` : option.seconds}</span>
                 </div>
                 <div className="text-center my-2 bg-[#00800029] p-1 rounded-md">
-                    <b className="mr-2 text-[#0069D9] text-xl">Điền từ thích hợp vào ô trống</b>
+                    <b className="mr-2 text-[#0069D9] text-xl">Điền từ thích hợp vào ô trống(Mai anh làm ahihi)</b>
                 </div>
                 <img className="inline-block mr-2 cursor-pointer" onClick={() => showHideHint(currentQuestion)} width={40} src={Question.src} /> {currentQuestion.show_hint && <span>{currentQuestion.trans}</span>}
                 <div className="h-[27px]">
@@ -169,8 +168,8 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
                     </ul>
                 </div>
                 <div className="box-game-action flex justify-center items-center">
-                    <EngliftButton id_button="game-complete-sentence-btn-submit" disabled={currentQuestion.key_answer.some(x => x.value == '') || currentQuestion.is_correct !== undefined} onClick={() => handleSubmitAnswer()} className="mx-2 bg-[#087f08] my-2 w-[fit-content] inline text-[#ffffff]" name="Trả lời" />
-                    <EngliftButton disabled={submited == wordItemsListen.length - 1} onClick={() => handleNextQuestion()} className="mx-2 bg-[#716d6d] my-2w-[fit-content] inline text-[#ffffff]" name="Bỏ qua" />
+                    <KorealiftButton id_button="game-complete-sentence-btn-submit" disabled={currentQuestion.key_answer.some(x => x.value == '') || currentQuestion.is_correct !== undefined} onClick={() => handleSubmitAnswer()} className="mx-2 bg-[#087f08] my-2 w-[fit-content] inline text-[#ffffff]" name="Trả lời" />
+                    <KorealiftButton disabled={submited == wordItemsListen.length - 1} onClick={() => handleNextQuestion()} className="mx-2 bg-[#716d6d] my-2w-[fit-content] inline text-[#ffffff]" name="Bỏ qua" />
                 </div>
 
                 {result !== undefined && (

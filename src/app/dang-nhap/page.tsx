@@ -1,5 +1,4 @@
 "use client"
-import EngliftButton from "@/components/base/EngliftButton";
 import HeadingPage from "@/components/base/HeadingPage";
 import Loading from "@/components/base/Loading";
 import { Success } from "@/components/icon";
@@ -14,6 +13,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CatQuestionMark from '../../../public/logo/cat-question-mark.png';
 import Link from "next/link";
+import KorealiftButton from "@/components/base/EngliftButton";
 
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
@@ -94,15 +94,15 @@ const SignIn = () => {
       {isLoading ? <Loading /> : (
         <>
           <div className="text-center my-5">
-            <h3 className="text-xl"><b>Đăng nhập tài khoản học Englift</b></h3>
+            <h3 className="text-xl"><b>Đăng nhập tài khoản học Korealift</b></h3>
             <img className="inline-block" src={CatQuestionMark.src} width="200" />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="flex flex-col justify-start items-center">
               <b>Tài khoản mạng xã hội?</b>
-              <EngliftButton onClick={handleLoginGoogle} name="Đăng nhập với Google" className="mx-auto bg-[#D21919] my-2 min-w-[250px] block" />
-              <EngliftButton disabled name="Đăng nhập với Facebook" className="mx-auto bg-[#007BFE] my-2 min-w-[250px] block" />
-              <EngliftButton disabled={true} name="Đăng nhập với Apple" className="mx-auto bg-[#000000] my-2 min-w-[250px] block" />
+              <KorealiftButton onClick={handleLoginGoogle} name="Đăng nhập với Google" className="mx-auto bg-[#D21919] my-2 min-w-[250px] block" />
+              <KorealiftButton disabled name="Đăng nhập với Facebook" className="mx-auto bg-[#007BFE] my-2 min-w-[250px] block" />
+              <KorealiftButton disabled={true} name="Đăng nhập với Apple" className="mx-auto bg-[#000000] my-2 min-w-[250px] block" />
             </div>
             <div className="lg:hidden"><h2 className="text-center text-xl"><b>Hoặc</b></h2></div>
             <form className="mt-5 lg:mt-0 flex flex-col justify-center items-center" onSubmit={handleSubmit(handleSignIn)}>
@@ -120,7 +120,7 @@ const SignIn = () => {
                   {errors?.password && errors?.password?.message}
                 </small>
               </div>
-              <EngliftButton type="submit" name="Đăng nhập" className="mx-auto bg-[#D21919] my-2 block" />
+              <KorealiftButton type="submit" name="Đăng nhập" className="mx-auto bg-[#D21919] my-2 block" />
               <div className="mt-3">Chưa có tài khoản? <Link className="italic underline text-[#a865e1]" href="/dang-ky"><b>Tạo ngay tài khoản học</b></Link></div>
             </form>
           </div>

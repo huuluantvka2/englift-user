@@ -1,7 +1,7 @@
 "use client"
 
 import WordItemBox from "@/components/WordItemBox"
-import EngliftButton from "@/components/base/EngliftButton"
+import KorealiftButton from "@/components/base/EngliftButton"
 import HeadingPage from "@/components/base/HeadingPage"
 import Loading from "@/components/base/Loading"
 import { AvatarThinking, CryIcon, Search } from "@/components/icon"
@@ -50,11 +50,11 @@ const SearchWord = (props: { searchParams: { search: string } }) => {
       <HeadingPage title="Từ điển Anh - Việt" />
       <div className="flex justify-center flex-col items-center md:flex-row">
         <input onKeyDown={handleEnter} onChange={e => setSearchContent(e.target.value)} value={searchContent} className="form-control-web mt-3 w-[240px] md:w-[320px] lg:w[400px]" id="search-word" type="text" aria-label="Search" placeholder="Nhập từ cần tra" />
-        <EngliftButton onClick={handleSearch} type="button" icon={Search.src} widthIcon="30" name="Tra từ" className="btn-submit mt-3 mx-2" />
+        <KorealiftButton onClick={handleSearch} type="button" icon={Search.src} widthIcon="30" name="Tra từ" className="btn-submit mt-3 mx-2" />
       </div>
       {!search && <div className="min-h-[200px] flex flex-col justify-center items-center mt-5">
         <img width={200} src={AvatarThinking.src} />
-        <p>Vui lòng nhập từ tiếng Anh cần tra cứu!</p>
+        <p>Vui lòng nhập từ tiếng Hàn cần tra cứu!</p>
       </div>}
       {search && !isLoading && words?.length === 0 && <div className="min-h-[200px] flex flex-col justify-center items-center mt-5">
         <img width={200} src={CryIcon.src} />

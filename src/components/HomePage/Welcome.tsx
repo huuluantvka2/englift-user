@@ -19,10 +19,10 @@ const Welcome = () => {
     }
     return (
         <motion.div initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.25 }} variants={staggerContainer()} className="w-full max-w-[1200px] min-h-[400px] md:min-h-[500px] mx-auto mt-[60px] px-5 md:px-10 relative">
-            <motion.img variants={fadeIn('left', 'tween', 0.2, 1, 100)} className='w-[70%] md:w-[100%] max-w-[750px] absolute right-[-65px] bottom-[-50px] md:right-[-160px] md:bottom-[-100px]' src={ImagePhone.src} alt="Englift" />
+            <motion.img variants={fadeIn('left', 'tween', 0.2, 1, 100)} className='w-[70%] md:w-[100%] max-w-[750px] absolute right-[-65px] bottom-[-50px] md:right-[-160px] md:bottom-[-100px]' src={ImagePhone.src} alt="Korealift" />
             <motion.div variants={textVariant(1)} className='my-10'>
-                <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-6xl">ENGLIFT</h1>
-                <h5 className="mt-3">Everything You Need. To Learning English</h5>
+                <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-6xl">KOREAN</h1>
+                <h5 className="mt-3">너가 필요한 모든것. 한국어를 배우려면</h5>
             </motion.div>
             <motion.div className='mt-2' variants={textVariant(1.1)}>
                 <Link href="/khoa-hoc" className='btn-go flex justify-center'>

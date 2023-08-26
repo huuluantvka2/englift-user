@@ -24,7 +24,7 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 	const [total, setTotal] = useState<number>(0)
 	const [words, setWords] = useState<WordItem[] | undefined>(undefined)
 	const [lesson, setLesson] = useState<LessonItem | undefined>(undefined)
-	const [wordGame, setWordGame] = useState<IWordGame>({ gameListen: undefined, gameCompleteSentence: undefined, gameMultipleChoice: undefined, gameWrite: undefined })
+	const [wordGame, setWordGame] = useState<IWordGame>({ gameCompleteSentence: undefined, gameMultipleChoice: undefined, gameWrite: undefined })
 	const [navTabs, setNavTabs] = useState<INavTabsGame[]>(navTabsGame)
 	const [tabActive, setTabActive] = useState<number>(+tab || 1)
 	const [isSaveResult, setIsSaveResult] = useState<boolean>(false)
@@ -52,7 +52,7 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 			...prev,
 			gameMultipleChoice: processDataMultipleChoice(response.data?.items as WordItem[]),
 			gameWrite: processDataGameWrite(response.data?.items as WordItem[]),
-			gameListen: processDataGameListen(response.data?.items as WordItem[]),
+			// gameListen: processDataGameListen(response.data?.items as WordItem[]),
 			gameCompleteSentence: processDataGameCompleteSentence(response.data?.items as WordItem[]),
 		}))
 		setLoading(false)
@@ -164,7 +164,7 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 					{tabActive === 1 && <ListWord words={words} />}
 					{tabActive === 2 && wordGame.gameMultipleChoice?.length && <MultipleChoice handleSaveResult={handleSaveResult} isSaveResult={isSaveResult} wordItems={JSON.parse(JSON.stringify(wordGame.gameMultipleChoice))} />}
 					{tabActive === 3 && wordGame.gameWrite?.length && <GameWrite handleSaveResult={handleSaveResult} isSaveResult={isSaveResult} wordItems={JSON.parse(JSON.stringify(wordGame.gameWrite))} />}
-					{tabActive === 4 && wordGame.gameListen?.length && <GameListen handleSaveResult={handleSaveResult} isSaveResult={isSaveResult} wordItems={JSON.parse(JSON.stringify(wordGame.gameListen))} />}
+					{/* {tabActive === 4 && wordGame.gameListen?.length && <GameListen handleSaveResult={handleSaveResult} isSaveResult={isSaveResult} wordItems={JSON.parse(JSON.stringify(wordGame.gameListen))} />} */}
 					{tabActive === 5 && wordGame.gameCompleteSentence?.length && <GameCompleteSentence handleSaveResult={handleSaveResult} isSaveResult={isSaveResult} wordItems={JSON.parse(JSON.stringify(wordGame.gameCompleteSentence))} />}
 				</>
 			)}

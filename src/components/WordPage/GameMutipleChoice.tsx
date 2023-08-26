@@ -4,9 +4,9 @@ import { IMultipleChoice } from "@/model/word"
 import { optionPieChart, renderWidthChartPie } from "@/utils/chart"
 import { handlePlayMP3, randomList, renderClassAnswerMultipleChoice } from "@/utils/func"
 import { useEffect, useState } from "react"
-import EngliftButton from "../base/EngliftButton"
 import ReactApexChart from "../chart/ReactApexChart"
 import { CorrectAnswer, LoudSpeaker, Question } from "../icon"
+import KorealiftButton from "../base/EngliftButton"
 
 const CLASS_NAME_SUBMIT = "multiple-choice-btn-submit"
 const MultipleChoice = (props: { wordItems: IMultipleChoice[], handleSaveResult: any, isSaveResult: boolean }) => {
@@ -152,8 +152,8 @@ const MultipleChoice = (props: { wordItems: IMultipleChoice[], handleSaveResult:
                     </ul>
                 </div>
                 <div className="box-game-action flex justify-center items-center">
-                    <EngliftButton id_button="multiple-choice-btn-submit" disabled={currentQuestion.key_answer === undefined || currentQuestion.is_correct !== undefined} onClick={() => handleSubmitAnswer()} className="mx-2 bg-[#087f08] my-2 w-[fit-content] inline text-[#ffffff]" name="Trả lời" />
-                    <EngliftButton disabled={submited == wordItemsChoices.length - 1} onClick={() => handleNextQuestion()} className="mx-2 bg-[#716d6d] my-2w-[fit-content] inline text-[#ffffff]" name="Bỏ qua" />
+                    <KorealiftButton id_button="multiple-choice-btn-submit" disabled={currentQuestion.key_answer === undefined || currentQuestion.is_correct !== undefined} onClick={() => handleSubmitAnswer()} className="mx-2 bg-[#087f08] my-2 w-[fit-content] inline text-[#ffffff]" name="Trả lời" />
+                    <KorealiftButton disabled={submited == wordItemsChoices.length - 1} onClick={() => handleNextQuestion()} className="mx-2 bg-[#716d6d] my-2w-[fit-content] inline text-[#ffffff]" name="Bỏ qua" />
                 </div>
 
                 {result !== undefined && (
