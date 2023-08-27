@@ -85,7 +85,7 @@ const Courses = () => {
 										<hr className="border-t-[2px] my-2" />
 										<div className="flex justify-between">
 											<span><img className="inline mr-2" src={Viewer.src} width="20" />0</span>
-											<h4 className="text-end italic">Tác giả: Luân Lê</h4>
+											<h4 className="text-end italic">Tác giả: 원리리</h4>
 										</div>
 									</Link>
 								</div>

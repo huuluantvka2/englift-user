@@ -118,7 +118,7 @@ const Lessons = (props: { params: { course_id: string } }) => {
 										</div>
 										<div className="flex justify-between">
 											<span className="w-[50%]"><img className="inline mr-2" src={Viewer.src} width="20" />0</span>
-											<h4 className="text-end italic w-[50%]">Tác giả: Luân Lê</h4>
+											<h4 className="text-end italic w-[50%]">Tác giả: 원리리</h4>
 										</div>
 									</div>
 								</div>
