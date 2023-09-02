@@ -132,14 +132,14 @@ const GameWrite = (props: { wordItems: IGameWrite[], handleSaveResult: any, isSa
                 <div className="text-center my-2 bg-[#00800029] p-1 rounded-md">
                     <b className="mr-2 text-[#0069D9] text-xl">{currentQuestion.trans}</b>
                 </div>
-                <img className="inline-block mr-2 cursor-pointer" onClick={() => showHideHint(currentQuestion)} width={40} src={Question.src} /> {currentQuestion.show_hint && <span>{currentQuestion.hint}</span>}
+                <img className="inline-block mr-2 cursor-pointer" onClick={() => showHideHint(currentQuestion)} width={40} src={Question.src} /> {currentQuestion.show_hint && <span>{currentQuestion.hint} {currentQuestion.phonetic && `/${currentQuestion.phonetic}/`}</span>}
                 <div className="h-[27px]">
-                    {currentQuestion.is_correct === undefined && <h2 className="text-center">Từ này trong tiếng anh là gì?</h2>}
+                    {currentQuestion.is_correct === undefined && <h2 className="text-center">Từ này trong tiếng Hàn là gì?</h2>}
                     {((option.correct == false && option.wrong == false) && currentQuestion.is_correct === true) && <div className="text-center"><span className="text-center badge badge-green">Bạn đã trả lời đúng!</span></div>}
                     {(option.correct == false && option.wrong == false) && currentQuestion.is_correct === false && <div className="text-center"><span className="text-center badge badge-red">Bạn đã trả lời sai! Câu trả lời đúng là: <b className="italic">{currentQuestion.content}</b></span></div>}
                 </div>
                 <div className="w-full text-center my-2">
-                    <input id="game-write-input" disabled={currentQuestion.is_correct !== undefined} value={currentQuestion.key_answer || ''} onChange={e => setCurrentQuestion(prev => ({ ...prev, key_answer: e.target.value }))} className="form-control-web-2 h-[40px] w-[90%] md:w-[80%]" type="text" placeholder="Nhập câu trả lời của bạn" />
+                    <input id="game-write-input" disabled={currentQuestion.is_correct !== undefined} value={currentQuestion.key_answer || ''} onChange={e => setCurrentQuestion(prev => ({ ...prev, key_answer: e.target.value }))} className="form-control-web-2 h-[40px] w-[90%] md:w-[80%]" type="text" placeholder="Nhập câu trả lời của bạn" autoComplete="off" />
                 </div>
                 <div className="box-game-pagination my-5">
                     <ul className="flex justify-center">

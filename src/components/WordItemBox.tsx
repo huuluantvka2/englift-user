@@ -10,7 +10,7 @@ const WordItemBox = (props: { item: WordItem, index: number }) => {
                 <div className="item-box-2-info">
                     <b className="mr-2 color-purple text-xl">{item.content}</b>
                     {item.audio && <img onClick={() => handlePlayMP3(item.audio)} className='cursor-pointer inline mx-2' src={LoudSpeaker.src} width={30} />}
-                    <span>{item.phonetic[0] === '/' ? item.phonetic : `/${item.phonetic}/`}</span>
+                    {item.phonetic &&(<span>{item.phonetic[0] === '/' ? item.phonetic : `/${item.phonetic}/`}</span>)}
                 </div>
                 <img className="item-box-2-image" src={NoImageWord.src} width={60} />
             </div>

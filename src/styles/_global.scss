@@ -141,7 +141,19 @@ body {
   border-radius: 4px;
   padding: 0 8px;
   &:focus-visible {
-    outline-color: #0069d999;
+    outline-color: #0069d9;
+  }
+}
+
+.form-control-web-5{
+  border-width: 0;
+  outline: none;
+  border-bottom: 1px solid #0069d9;
+  background-color: transparent;
+  padding: 0 8px;
+  margin:0 8px;
+  &:focus-visible {
+    border-bottom: 2px solid #0069d999;
   }
 }
 

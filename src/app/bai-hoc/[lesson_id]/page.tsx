@@ -91,7 +91,7 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 			}
 			newList.push({ ...item, hint })
 		})
-		return newList
+		return [...newList]
 	}
 
 	const processDataGameListen = (wordsList: WordItem[]) => {
@@ -106,7 +106,7 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 				newList.push({ ...item, hint })
 			}
 		})
-		return newList
+		return [...newList]
 	}
 
 	const processDataGameCompleteSentence = (wordsList: WordItem[]) => {
@@ -114,10 +114,10 @@ const Words = (props: { params: { lesson_id: string }, searchParams: { tab: numb
 		wordsList.forEach((item) => {
 			const paragraphs: string[] = item.example.split(`${item.content}`)
 			if (paragraphs.length === 2) {
-				newList.push({ ...item, paragraphs, key_answer: Array.from(item.content).map((char, index) => ({ id: index, value: '' })) })
+				newList.push({ ...item, paragraphs })
 			}
 		})
-		return newList
+		return [...newList]
 	}
 
 	//#endregion

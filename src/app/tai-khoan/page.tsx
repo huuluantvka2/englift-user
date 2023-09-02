@@ -29,13 +29,12 @@ const InformationUser = () => {
   const loadData = async () => {
     setLoading(prev => ({ ...prev, getData: true }))
     const user = await getProfileByToken()
-    console.log('user', user)
     if (user.success) {
       setUser(user.data)
       reset({
         fullName: user.data?.fullName,
         address: user.data?.address,
-        introduce: user.data?.introduce || 'Mình rất ham học tiếng anh và để học từ vựng mình vào đây học hỏi được rất nhiều',
+        introduce: user.data?.introduce || 'Mình rất ham học tiếng Hàn và để học từ vựng mình vào đây học hỏi được rất nhiều',
         isNotify: user.data?.isNotify,
         phoneNumber: user.data?.phoneNumber,
         refCode: user.data?.refCode,

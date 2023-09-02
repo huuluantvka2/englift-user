@@ -38,8 +38,7 @@ export interface IGameListen extends WordItem {
     show_hint?: boolean,
 }
 export interface IGameCompleteSentence extends WordItem {
-    key_answer: Array<{ id: number, value: string }>,
-    key_string?: string,
+    key_answer?: string,
     paragraphs: string[]
     is_correct?: boolean,
     show_hint?: boolean,

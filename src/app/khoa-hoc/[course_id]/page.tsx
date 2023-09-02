@@ -15,13 +15,14 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import ReactPaginate from "react-paginate"
 
-const Lessons = (props: { params: { course_id: string } }) => {
-	const { course_id } = props.params
+const Lessons = (props: { params: { course_id: string },searchParams:{page:string} }) => {
+	const { course_id } = props.params 
+	const { page } = props.searchParams 
 	//#region useState
 	const router = useRouter()
 	const [request, setRequest] = useState<BaseRequest>({
 		limit: 10,
-		page: 1,
+		page: page ? +page : 1,
 		search: "",
 		sort: undefined
 	})
@@ -42,6 +43,7 @@ const Lessons = (props: { params: { course_id: string } }) => {
 		}
 	}
 	useEffect(() => {
+		router.push(`/khoa-hoc/${course_id}?page=${request.page}`)
 		loadData()
 	}, [request.page, request.search])
 

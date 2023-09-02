@@ -18,6 +18,7 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
     const [option, setOption] = useState<OptionGame>({ correct: false, wrong: false, isPlayAudio: false, minutes: 0, seconds: 0 })
     const [result, setResult] = useState<ResultGame | undefined>(undefined)
     const [wordItemsListen, setWordItemsListens] = useState<IGameCompleteSentence[]>(randomList<IGameCompleteSentence>(wordItems))
+    console.log(wordItemsListen)
     const [currentQuestion, setCurrentQuestion] = useState<IGameCompleteSentence>(wordItemsListen[0])
     //#region handle event
     useEffect(() => {
@@ -37,32 +38,6 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
             clearInterval(timer)
         }
     }, [result])
-
-    useEffect(() => {
-        const handleListenEvent = (e) => {
-            if (e.key === 'Backspace' && !e.target.value) {
-                let index = +e.target.id.split(`${CLASS_NAME_INPUT}-`)[1]
-                if (index > 0) {
-                    setTimeout(() => {
-                        document.getElementById(`${CLASS_NAME_INPUT}-${index - 1}`)?.focus()
-                    }, 1)
-                }
-            }
-            else if (e.key === 'Enter' && !document.getElementById(CLASS_NAME_SUBMIT)?.classList.contains('cursor-not-allowed')) {
-                handleSubmitAnswer()
-            }
-        }
-        if (currentQuestion.key_answer !== undefined) {
-            document.addEventListener('keydown', handleListenEvent)
-        }
-        return () => {
-            document.removeEventListener('keydown', handleListenEvent)
-        }
-    }, [currentQuestion.key_answer])
-
-    useEffect(() => {
-        document.getElementById(`${CLASS_NAME_INPUT}-${0}`)?.focus()
-    }, [questionActive])
     //#endregion
 
     //#endregion 
@@ -107,13 +82,10 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
     }
     const handleSubmitAnswer = () => {
         let index = wordItemsListen.findIndex(x => x.id === currentQuestion.id)
-        const key_string = concatString(currentQuestion.key_answer)
-        currentQuestion.is_correct = currentQuestion.content.toLowerCase() === key_string
+        currentQuestion.is_correct = currentQuestion.key_answer === wordItemsListen[index].content
         setWordItemsListens(prev => {
             const updatePrev = [...prev]
-            updatePrev[index].key_answer = currentQuestion.key_answer
             updatePrev[index].is_correct = currentQuestion.is_correct
-            updatePrev[index].key_string = key_string
             return updatePrev
         })
         currentQuestion.is_correct === true ? setOption(prev => ({ ...prev, correct: true })) : setOption(prev => ({ ...prev, wrong: true }))
@@ -122,17 +94,6 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
             setOption(prev => ({ ...prev, correct: false, wrong: false }))
             handleNextQuestion(submited + 1 === wordItemsListen.length)
         }, 1000)
-    }
-
-    const handleChangeValue = (item, value) => {
-        setCurrentQuestion((prev) => {
-            let key_answer = prev.key_answer
-            key_answer[item.id].value = value.length > 1 ? value[value.length - 1] : value
-            return { ...prev, key_answer }
-        })
-        if (item.id < currentQuestion.key_answer.length - 1 && value != '') {
-            document.getElementById(`${CLASS_NAME_INPUT}-${item.id + 1}`)?.focus()
-        }
     }
     //#endregion
     return (
@@ -148,7 +109,7 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
                     <span className="color-pink ">{option.minutes < 10 ? `0${option.minutes}` : option.minutes}:{option.seconds < 10 ? `0${option.seconds}` : option.seconds}</span>
                 </div>
                 <div className="text-center my-2 bg-[#00800029] p-1 rounded-md">
-                    <b className="mr-2 text-[#0069D9] text-xl">Điền từ thích hợp vào ô trống(Mai anh làm ahihi)</b>
+                    <b className="mr-2 text-[#0069D9] text-xl">Điền từ thích hợp vào ô trống</b>
                 </div>
                 <img className="inline-block mr-2 cursor-pointer" onClick={() => showHideHint(currentQuestion)} width={40} src={Question.src} /> {currentQuestion.show_hint && <span>{currentQuestion.trans}</span>}
                 <div className="h-[27px]">
@@ -157,9 +118,7 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
                 </div>
                 <div className="w-full text-center my-2 text-lg lg:text-xl h-[40px]">
                     <span>{currentQuestion.paragraphs[0]}</span>
-                    {currentQuestion.key_answer.map((item, index) => (
-                        <input disabled={currentQuestion.is_correct !== undefined} key={item.id} className="form-control-web-3 w-[20px]" id={`${CLASS_NAME_INPUT}-${item.id}`} onChange={(e) => handleChangeValue(item, e.target.value)} value={item.value || ''} type="text" placeholder="" autoComplete="off" />
-                    ))}
+                    <input autoFocus className="form-control-web-5 h-[32px] max-w-[120px]" disabled={currentQuestion.is_correct !== undefined} key={currentQuestion.id} value={currentQuestion.key_answer || ''} onChange={(e) =>setCurrentQuestion(prev =>({...prev,key_answer:e.target.value}))} onKeyDown={(e=>(e.key ==='Enter' && currentQuestion.key_answer) && handleSubmitAnswer())} type="text" placeholder="" autoComplete="off" />
                     <span>{currentQuestion.paragraphs[1]}</span>
                 </div>
                 <div className="box-game-pagination my-5">
@@ -168,7 +127,9 @@ const GameCompleteSentence = (props: { wordItems: IGameCompleteSentence[], handl
                     </ul>
                 </div>
                 <div className="box-game-action flex justify-center items-center">
-                    <KorealiftButton id_button="game-complete-sentence-btn-submit" disabled={currentQuestion.key_answer.some(x => x.value == '') || currentQuestion.is_correct !== undefined} onClick={() => handleSubmitAnswer()} className="mx-2 bg-[#087f08] my-2 w-[fit-content] inline text-[#ffffff]" name="Trả lời" />
+                    <KorealiftButton id_button="game-complete-sentence-btn-submit" 
+                    disabled={!currentQuestion.key_answer || currentQuestion.is_correct !== undefined}
+                     onClick={() => handleSubmitAnswer()} className="mx-2 bg-[#087f08] my-2 w-[fit-content] inline text-[#ffffff]" name="Trả lời" />
                     <KorealiftButton disabled={submited == wordItemsListen.length - 1} onClick={() => handleNextQuestion()} className="mx-2 bg-[#716d6d] my-2w-[fit-content] inline text-[#ffffff]" name="Bỏ qua" />
                 </div>
 

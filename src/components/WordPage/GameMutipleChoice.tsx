@@ -127,14 +127,16 @@ const MultipleChoice = (props: { wordItems: IMultipleChoice[], handleSaveResult:
                 <div className="flex justify-between">
                     <span className="badge badge-red">{submited}/{wordItemsChoices.length}</span>
                     <span className="color-pink ">{option.minutes < 10 ? `0${option.minutes}` : option.minutes}:{option.seconds < 10 ? `0${option.seconds}` : option.seconds}</span>
-                    <span><input onChange={(e) => setOption(prev => ({ ...prev, isPlayAudio: e.target.checked }))} className="mr-2" type="checkbox" />Phát audio</span>
+                    <span>
+                        {/* <input onChange={(e) => setOption(prev => ({ ...prev, isPlayAudio: e.target.checked }))} className="mr-2" type="checkbox" />Phát audio */}
+                        </span>
                 </div>
                 <div className="text-center min-h-[30px]">
                     {currentQuestion.audio && <img onClick={() => handlePlayMP3(currentQuestion.audio)} className='cursor-pointer inline mx-2' src={LoudSpeaker.src} width={30} />}
                 </div>
                 <div className="text-center my-2 bg-[#00800029] p-1 rounded-md">
                     <b className="mr-2 text-[#0069D9] text-xl">{currentQuestion.content}</b>
-                    <span>{currentQuestion.phonetic[0] === '/' ? currentQuestion.phonetic : `/${currentQuestion.phonetic}/`}</span>
+                    {currentQuestion.phonetic &&(<span>{currentQuestion.phonetic[0] === '/' ? currentQuestion.phonetic : `/${currentQuestion.phonetic}/`}</span>)}
                 </div>
                 <img className="inline-block mr-2 cursor-pointer" onClick={() => showHideHint(currentQuestion)} width={40} src={Question.src} /> {currentQuestion.show_hint && <span>{currentQuestion.example}</span>}
                 <h2 className="text-center">Chọn đáp án đúng</h2>
